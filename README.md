@@ -15,14 +15,14 @@
 
 
 ### step 1) Make sure you have implement the depended libray
-    <code>
- <link rel="stylesheet" type="text/css" href="/jslib/bootstrap/css/bootstrap.min.css">
+    <pre><code>
+    <link rel="stylesheet" type="text/css" href="/jslib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/jslib/bootstrap-table/bootstrap-table.min.css">
     <link rel="stylesheet" type="text/css" href="/jslib/bootstrap-editable.css">
     <script src="/jslib/jquery.min.js"></script>
     <script src="/jslib/bootstrap/js/bootstrap.min.js"></script>
     <script src="/jslib/angular2.beta.stack.min.js"></script>
-    </code>
+    </pre></code>
 
 ### step 2) add the component into your angular2 component
  <pre><code>
