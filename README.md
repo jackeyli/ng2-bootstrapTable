@@ -1,4 +1,4 @@
-# ng2-bsTable
+# ng2-bootstrapTable (remove From ng2-bsTable)
 
 ### A Bootstrap Style table for angular2 support sort/paging/edit/grouping Coumn/expandRows
 
