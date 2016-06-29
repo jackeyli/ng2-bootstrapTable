@@ -1,0 +1,142 @@
+.table > tbody > ngBsTableRow > th,
+.table > tbody > ngBsTableRow > td
+{
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+.table > caption + thead > ngBsTableRow:first-child > th,
+.table > colgroup + thead > ngBsTableRow:first-child > th,
+.table > thead:first-child > ngBsTableRow:first-child > th,
+.table > caption + thead > ngBsTableRow:first-child > td,
+.table > colgroup + thead > ngBsTableRow:first-child > td,
+.table > thead:first-child > ngBsTableRow:first-child > td {
+    border-top: 0;
+}
+.table-condensed > tbody > ngBsTableRow > th,
+.table-condensed > tbody > ngBsTableRow > td
+{
+    padding: 5px;
+}
+.table-bordered {
+    border: 1px solid #ddd;
+}
+.table-bordered > tbody > ngBsTableRow > th,
+.table-bordered > tbody > ngBsTableRow > td
+{
+    border: 1px solid #ddd;
+}
+.table-striped > tbody > ngBsTableRow:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+.table-hover > tbody > ngBsTableRow:hover {
+    background-color: #f5f5f5;
+}
+.table > tbody > ngBsTableRow > td.active,
+.table > tbody > ngBsTableRow > th.active,
+.table > tbody > ngBsTableRow.active > td,
+.table > tbody > ngBsTableRow.active > th
+{
+    background-color: #f5f5f5;
+}
+.table-hover > tbody > ngBsTableRow > td.active:hover,
+.table-hover > tbody > ngBsTableRow > th.active:hover,
+.table-hover > tbody > ngBsTableRow.active:hover > td,
+.table-hover > tbody > ngBsTableRow:hover > .active,
+.table-hover > tbody > ngBsTableRow.active:hover > th {
+    background-color: #e8e8e8;
+}
+.table > tbody > ngBsTableRow > td.success,
+.table > tbody > ngBsTableRow > th.success,
+.table > tbody > ngBsTableRow.success > td,
+.table > tbody > ngBsTableRow.success > th
+{
+    background-color: #dff0d8;
+}
+.table-hover > tbody > ngBsTableRow > td.success:hover,
+.table-hover > tbody > ngBsTableRow > th.success:hover,
+.table-hover > tbody > ngBsTableRow.success:hover > td,
+.table-hover > tbody > ngBsTableRow:hover > .success,
+.table-hover > tbody > ngBsTableRow.success:hover > th {
+    background-color: #d0e9c6;
+}
+
+.table > tbody > ngBsTableRow > td.info,
+.table > tbody > ngBsTableRow > th.info,
+.table > tbody > ngBsTableRow.info > td,
+.table > tbody > ngBsTableRow.info > th
+{
+    background-color: #d9edf7;
+}
+.table-hover > tbody > ngBsTableRow > td.info:hover,
+.table-hover > tbody > ngBsTableRow > th.info:hover,
+.table-hover > tbody > ngBsTableRow.info:hover > td,
+.table-hover > tbody > ngBsTableRow:hover > .info,
+.table-hover > tbody > ngBsTableRow.info:hover > th {
+    background-color: #c4e3f3;
+}
+.table > tbody > ngBsTableRow > td.warning,
+.table > tbody > ngBsTableRow > th.warning,
+.table > tbody > ngBsTableRow.warning > td,
+.table > tbody > ngBsTableRow.warning > th
+{
+    background-color: #fcf8e3;
+}
+.table-hover > tbody > ngBsTableRow > td.warning:hover,
+.table-hover > tbody > ngBsTableRow > th.warning:hover,
+.table-hover > tbody > ngBsTableRow.warning:hover > td,
+.table-hover > tbody > ngBsTableRow:hover > .warning,
+.table-hover > tbody > ngBsTableRow.warning:hover > th {
+    background-color: #faf2cc;
+}
+
+.table > tbody > ngBsTableRow > td.danger,
+.table > tbody > ngBsTableRow > th.danger,
+.table > tbody > ngBsTableRow.danger > td,
+.table > tbody > ngBsTableRow.danger > th
+{
+    background-color: #f2dede;
+}
+.table-hover > tbody > ngBsTableRow > td.danger:hover,
+.table-hover > tbody > ngBsTableRow > th.danger:hover,
+.table-hover > tbody > ngBsTableRow.danger:hover > td,
+.table-hover > tbody > ngBsTableRow:hover > .danger,
+.table-hover > tbody > ngBsTableRow.danger:hover > th {
+    background-color: #ebcccc;
+}
+@media screen and (max-width: 767px) {
+    .table-responsive > .table > tbody > ngBsTableRow > th,
+    .table-responsive > .table > tbody > ngBsTableRow > td
+    {
+        white-space: nowrap;
+    }
+    .table-responsive > .table-bordered > tbody > ngBsTableRow > th:first-child,
+    .table-responsive > .table-bordered > tbody > ngBsTableRow > td:first-child
+    {
+        border-left: 0;
+    }
+
+    .table-responsive > .table-bordered > tbody > ngBsTableRow > th:last-child,
+    .table-responsive > .table-bordered > tbody > ngBsTableRow > td:last-child
+    {
+        border-right: 0;
+    }
+    .table-responsive > .table-bordered > tbody > ngBsTableRow:last-child > th
+    .table-responsive > .table-bordered > tbody > ngBsTableRow:last-child > td
+    {
+        border-bottom: 0;
+    }
+}
+
+
+.bootstrap-table .table.table-no-bordered > tbody > ngBsTableRow > td {
+    border-right: 2px solid transparent;
+}
+.bootstrap-table .fixed-table-footer tbody > ngBsTableRow > td {
+    padding: 0 !important;
+}

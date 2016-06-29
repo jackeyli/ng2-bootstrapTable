@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/bootstrap/css/ng-bs2table.css">
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/css/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/css/bootstrap-editable.css">
+    <script src="/static/lib/jquery.min.js"></script>
+    <script src="/static/lib/ng-bstable/bootstrap/bootstrap.min.js"></script>
+    <script src="/static/lib/angular2.beta.stack.min.js"></script>
+</head>
+<body>
+<style>
+    .panel-heading {
+        background-color: #6e9ccd;
+    }
+    .panel-body{
+        background-color: #f4f4f4;
+        box-shadow: 10px 10px 5px #979797;
+    }
+</style>
+<app></app>
+<script type="text/typescript">
+    import {enableProdMode} from "angular2/core";
+    import {bootstrap} from "angular2/platform/browser";
+    import {app} from "/static/lib/ng-bstable/ng-bstable-test.ts";
+    enableProdMode();
+    bootstrap(app);
+</script>
+</body>
+</html>
+
