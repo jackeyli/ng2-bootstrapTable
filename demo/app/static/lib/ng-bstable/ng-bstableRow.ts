@@ -14,7 +14,7 @@ import {ng_BsExpandRowPlaceHolder} from './ng-expandRowPlaceHolder.ts';
      pipes:[columingPipe],
      template:`
             <td *ngIf="detailView">
-                <a class="detail-icon" href="javascript:"(click)="onClickExpandHandler($event)"><i class="glyphicon glyphicon-plus icon-plus"></i></a>
+                <a class="detail-icon" href="javascript:"(click)="onClickExpandHandler($event)"><i [ngClass]="getExpandIndicateClass()"></i></a>
             </td>
             <td *ngFor = "#column of (columns |columning : 'dataColumning')" style="position:relative">
                 <ngBsTableItem (editCommit)="onEditCommit($event);" (beginEdit) = "beginEdit($event)" [ng2_editable]="{editCmpType:editComponentType,refData:{data:data,column:column}}" [config]="column" [data]="data">
@@ -37,6 +37,16 @@ export class ng_bsTableRow{
            this.collapse();
         } else {
             this.expand();
+        }
+    }
+    getExpandIndicateClass()
+    {
+        return {
+            'glyphicon':true,
+            'icon-plus':!this.expanded,
+            'glyphicon-plus':!this.expanded,
+            'glyphicon-minus':this.expanded,
+            'icon-minus':this.expanded
         }
     }
     expand()

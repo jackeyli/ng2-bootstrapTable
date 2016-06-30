@@ -140,3 +140,16 @@
 .bootstrap-table .fixed-table-footer tbody > ngBsTableRow > td {
     padding: 0 !important;
 }
+.tableHeader
+{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    text-align:center
+}
+.shown
+{
+    display:'td'
+}
+.hide{
+    display:none
+}

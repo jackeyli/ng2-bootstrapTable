@@ -1,7 +1,5 @@
-# ng2-bootstrapTable (remove From ng2-bsTable)
-
-### A Bootstrap Style table for angular2 support sort/paging/edit/grouping Coumn/expandRows
-
+## A Bootstrap Style table for angular2 support sort/paging/edit/grouping Coumn/expandRows
+<img url="bootstrapTable.PNG"></img>
 ### How to run demo ?
 
 ###  step 1) switch to demo folder and run node app.js
@@ -47,6 +45,11 @@ export class app {
               "column2": item + 12
           })
         );
+
+        /*
+            Or you can use
+            this.data = {url:'/remoteUrl',method:'get'};
+        */
         this.bsOption = {
             columns:[
                 [{

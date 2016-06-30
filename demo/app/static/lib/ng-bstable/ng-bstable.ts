@@ -1,23 +1,25 @@
 /**
  * Created by LIJA3 on 6/17/2016.
  */
-import { ContentChildren,Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
+import {Injectable,IContentChildren,Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
 import {bsTablePageEvent} from "./ng-bstableEvt.ts";
 import {ngBsTablePaging} from './ng-bstablePaging.ts';
 import {defaultEditComponent} from './ng-editComponent.ts';
 import {ng_bsTableRow} from './ng-bstableRow.ts';
 import {pageFilter,sortFilter,columingPipe,filteringPipe,expandFilterPipe} from './ng-tablePipes.ts'
-
+import {ng_bsTableDataProvider} from './ng-tableDataProvider.ts';
+@Injectable()
 @Component({
     selector : "ng_bstable",
     inputs : ["option:option","data:data"],
     directives:[ngBsTablePaging,ng_bsTableRow],
     pipes:[pageFilter,sortFilter,columingPipe,filteringPipe,expandFilterPipe],
+    providers:[ng_bsTableDataProvider],
     template:`
         <div class="bootstrap-table">
             <div class="fixed-table-container">
                 <div class="fixed-table-body">
-                    <table #vtable data-toggle="table" class="table table-hover">
+                    <table  data-toggle="table" class="table table-hover">
                         <thead>
                         <tr *ngFor="#columnRow of (option.columns|columning:'columning');#j=index">
                             <th *ngIf="option.detailView && j==0" [attr.rowspan]="getDetailViewRowSpan(option.columns)" class = "tableHeader">
@@ -45,33 +47,19 @@ import {pageFilter,sortFilter,columingPipe,filteringPipe,expandFilterPipe} from 
             [currPage]="currPage" [totalRecords]="(datas|filtering:filteringFields).length" >
             </ngBsTablePaging>
         </div>
-     `,
-    styles:[
-        `.tableHeader
-        {
-            -webkit-user-select:none;
-            -moz-user-select:none;
-            text-align:center
-        }
-        .shown
-        {
-            display:'td'
-        }
-        .hide{
-            display:none
-        }
-        `
-    ]
+     `
 })
 export class ng_bstable implements AfterContentInit{
-@ContentChildren('vtable') tableRows: QueryList<ElementRef>;
-    constructor(){
+
+    constructor(private dataProvider:ng_bsTableDataProvider){
     }
     set data(v:data)
     {
-        this.pageSize = this.option ? this.option.pageSize : 100;
-        this.currPage = 1;
-        this.datas = this.generateGridDatas(v);
+        this.dataProvider.provideData(v).then(function(v){
+            this.pageSize = this.option ? this.option.pageSize : 100;
+            this.currPage = 1;
+            this.datas = this.generateGridDatas(v);
+        }.bind(this));
     }
     onRowExpand(evt)
     {
@@ -134,13 +122,13 @@ export class ng_bstable implements AfterContentInit{
         if(Array.isArray(columns[0]))
         {
             return columns.reduce(function(a,b){
-                return a.reduce(function(a,b){
+                return (Array.isArray(a) ? (a.length == 1 ? (a.rowspan ? a.rowspan : 1) :  a.reduce(function(a,b){
                     return (a.rowspan ? a.rowspan : 1) > (b.rowspan ? b.rowspan : 1) ?
                         (a.rowspan ? a.rowspan : 1) : (b.rowspan ? b.rowspan : 1);
-                }) + b.reduce(function(a,b){
+                })) : a) + (b.length == 1 ? (b.rowspan ? b.rowspan : 1) : b.reduce(function(a,b){
                         return (a.rowspan ? a.rowspan : 1) > (b.rowspan ? b.rowspan : 1) ?
                             (a.rowspan ? a.rowspan : 1) : (b.rowspan ? b.rowspan : 1);
-                    });
+                    }));
             })
         } else
         {
@@ -200,5 +188,9 @@ export class ng_bstable implements AfterContentInit{
     cellDbClick()
     {
 
+    }
+    getTableData()
+    {
+        return this.datas.map(i=>i.data);
     }
 }

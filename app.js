@@ -8,7 +8,6 @@ var app = express();
 var http = require('http');
 var app = express(),
     fs= require('fs')
-var loginService = require('./loginService');
 app.engine('.html', ejs.__express);
 app.set('views',__dirname + '/app/views');
 app.set('view engine', 'html');
@@ -16,4 +15,17 @@ app.use('/static',express.static(path.join(__dirname,'/app/static')));
 app.get('/',function(req,res){
     res.render('index');
 })
+app.get('/testUrl',function(req,res){
+        var obj = [];
+        for(var i = 0; i < 100; i ++)
+        {
+            obj.push({
+                "namex": "ng-bsTable",
+                "column1": i,
+                "column2": i + 12
+            })
+        }
+        res.send(JSON.stringify(obj));
+    }
+)
 app.listen(8188);

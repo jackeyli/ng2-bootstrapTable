@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/jslib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/jslib/bootstrap-table/bootstrap-table.min.css">
-    <link rel="stylesheet" type="text/css" href="/jslib/bootstrap-editable.css">
-    <script src="/jslib/jquery.min.js"></script>
-    <script src="/jslib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/jslib/angular2.beta.stack.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/bootstrap/css/ng-bs2table.css">
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/css/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/lib/ng-bstable/css/bootstrap-editable.css">
+    <script src="/static/lib/jquery.min.js"></script>
+    <script src="/static/lib/ng-bstable/bootstrap/bootstrap.min.js"></script>
+    <script src="/static/lib/angular2.beta.stack.min.js"></script>
 </head>
 <body>
 <style>
@@ -24,9 +25,10 @@
 <script type="text/typescript">
     import {enableProdMode} from "angular2/core";
     import {bootstrap} from "angular2/platform/browser";
-    import {app} from "/jslib/ng-bstable-test.ts";
+    import {app} from "/static/lib/ng-bstable/ng-bstable-test.ts";
+    import {HTTP_PROVIDERS} from "angular2/http";
     enableProdMode();
-    bootstrap(app);
+    bootstrap(app,[HTTP_PROVIDERS]);
 </script>
 </body>
 </html>

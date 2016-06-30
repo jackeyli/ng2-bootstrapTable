@@ -8,6 +8,8 @@ import { Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicC
 })
 export class pageFilter{
     transform(input,args){
+        if(!input)
+            return [];
         if(!args[2])
             return input;
         let pageSize = args[0],
@@ -27,6 +29,8 @@ export class pageFilter{
 })
 export class sortFilter{
     transform(input,args){
+        if(!input)
+            return [];
         let field = args[0],
             direction = args[1];
         if(field != null)
@@ -42,6 +46,8 @@ export class sortFilter{
 })
 export class columingPipe{
     transform(input,arg){
+        if(!input)
+            return [];
         if(arg[0] == 'columning') {
             return Array.isArray(input[0]) ? input : [input]
         }
@@ -62,6 +68,8 @@ export class columingPipe{
 })
 export class filteringPipe{
     transform(input,arg){
+        if(!input)
+            return [];
         let filteringFields = arg[0];
         if(filteringFields == null)
             return input;
