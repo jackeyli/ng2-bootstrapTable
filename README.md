@@ -1,5 +1,5 @@
 ## A Bootstrap Style table for angular2 support sort/paging/edit/grouping Coumn/expandRows
-<img url="bootstrapTable.PNG"></img>
+<img src="bootstrapTable.PNG"></img>
 ### How to run demo ?
 
 ###  step 1) switch to demo folder and run node app.js
