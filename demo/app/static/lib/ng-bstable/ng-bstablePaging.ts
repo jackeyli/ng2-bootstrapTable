@@ -175,7 +175,9 @@ export class ngBsTablePaging{
     pageSizeListClick(evt,j)
     {
         this.pageSize = j;
-        this.currPage = 1;
+        let maxPage = Math.floor((this.totalRecords + this.pageSize - 1) / this.pageSize);
+        if(this.currPage > maxPage)
+            this.currPage = maxPage;
         this.onPageSizeChange.emit(this.getPageEvt());
     }
     getPageEvt()

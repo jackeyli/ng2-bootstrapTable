@@ -23,7 +23,6 @@ export class ng_bsTableDataProvider
                 switch(method)
                 {
                     case 'GET':
-                        debugger;
                         return this.http.get(data.url).subscribe(function(response){
                             resolve(response.json());
                         });

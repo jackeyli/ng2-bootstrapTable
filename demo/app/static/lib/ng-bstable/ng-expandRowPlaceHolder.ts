@@ -7,10 +7,11 @@ import {ViewChild,HostListener,Pipe,Component, Directive, ElementRef, Renderer, 
     inputs: [
         'colspan:colspan',
         'data:data',
-        'expandRowHandler:expandRowHandler'
+        'expandRowHandler:expandRowHandler',
+        'colspan:colspan'
         ],
     template:`
-        <td [attr.colspan]="4">
+        <td [attr.colspan]="colspan">
         <myFixedLocation #v_container></myFixedLocation>
         </td>
     `

@@ -2,12 +2,12 @@
  * Created by LIJA3 on 6/17/2016.
  */
 import {Injectable,IContentChildren,Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
-import {bsTablePageEvent} from "./ng-bstableEvt.ts";
 import {ngBsTablePaging} from './ng-bstablePaging.ts';
 import {defaultEditComponent} from './ng-editComponent.ts';
 import {ng_bsTableRow} from './ng-bstableRow.ts';
-import {pageFilter,sortFilter,columingPipe,filteringPipe,expandFilterPipe} from './ng-tablePipes.ts'
+import {pageFilter,sortFilter,columingPipe,filteringPipe,expandFilterPipe} from './ng-tablePipes.ts';
 import {ng_bsTableDataProvider} from './ng-tableDataProvider.ts';
+import {bsTablePageEvent,bsTableEvt} from "./ng-bstableEvt.ts";
 @Injectable()
 @Component({
     selector : "ng_bstable",
@@ -36,7 +36,10 @@ import {ng_bsTableDataProvider} from './ng-tableDataProvider.ts';
                         <tbody>
                             <ngBsTableRow [detailView]="option.detailView" (expand)="onRowExpand($event)" (collapse)="onRowCollapse($event)" style="display:table-row" [ngClass]="option.rowStyle" [onRowExpand]="option.onExpandRow"
                                 *ngFor="#rdata of (datas|filtering:filteringFields|paging:pageSize:currPage:option.pagination|sorting:sortField:sortDirection)"
-                            [data]="rdata" (editCommit)="onEditCommit($event);" (beginEdit) = "beginEdit($event)"  [editComponentType]="getEditComponentType()" [columns]="option.columns" >
+                            [data]="rdata" (editCommit)="onEditCommit($event);" (beginEdit) = "beginEdit($event)"  [defaultEditComponentType]="getEditComponentType()" [columns]="option.columns"
+                            [expandHolderColspan]="(option.columns|columning:'dataColumning').length + (option.detailView ? 1 : 0)"
+                            (cellClick)=" onTableCellClick($event)" (celldblClick)="onTableCellDblClick($event)"
+                            >
                             </ngBsTableRow>
                         </tbody>
                     </table>
@@ -50,8 +53,20 @@ import {ng_bsTableDataProvider} from './ng-tableDataProvider.ts';
      `
 })
 export class ng_bstable implements AfterContentInit{
-
+    @Output("edit") public editEmitter : EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
+    @Output("cellClick") public cellClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
+    @Output("celldblClick") public celldblClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
     constructor(private dataProvider:ng_bsTableDataProvider){
+    }
+    onTableCellClick(evt)
+    {
+        evt.table = this;
+        this.cellClickEmitter.emit(evt);
+    }
+    onTableCellDblClick(evt)
+    {
+        evt.table = this;
+        this.celldblClickEmitter.emit(evt);
     }
     set data(v:data)
     {
@@ -74,8 +89,8 @@ export class ng_bstable implements AfterContentInit{
         });
     }
     generateGridDatas(v:data){
-        return v.map(i=>({
-          data:i,isExpanded:false,isExpandedSubRow:false
+        return v.map((i,row)=>({
+          data:i,row:row
         }));
     }
     getEditComponentType(){
@@ -105,7 +120,14 @@ export class ng_bstable implements AfterContentInit{
     }
     onEditCommit(evt){
         if(!evt.cancelEdit) {
+            let outEvt = <bsTableEvt>({});
+            outEvt.row = evt.refData.data.row;
+            outEvt.col = evt.refData.column;
+            outEvt.data = evt.refData.data.data;
+            outEvt.originVal = evt.refData.data.data[evt.refData.column.field];
+            outEvt.newVal = evt.value;
             evt.refData.data.data[evt.refData.column.field] = evt.value;
+            this.editEmitter.emit(outEvt);
         }
         this.editingCmp = null;
     }
@@ -146,7 +168,8 @@ export class ng_bstable implements AfterContentInit{
             'th-inner':true,
             'sortable':column.sortable,
             'asc':sortDirection == 'asc' && column.sortable,
-            'desc':sortDirection == 'desc' && column.sortable
+            'desc':sortDirection == 'desc' && column.sortable,
+            'both':(sortDirection == null || sortDirection == '') && column.sortable
         }
     }
     _onPageSizeChange(event){
@@ -181,13 +204,13 @@ export class ng_bstable implements AfterContentInit{
             rowItem.collapse();
         })
     }
-    cellClick()
+    onCellClick(evt)
     {
-
+        this.cellClickEmitter.emit(evt);
     }
-    cellDbClick()
+    onCellDbClick(evt)
     {
-
+        this.celldblClickEmitter.emit(evt)
     }
     getTableData()
     {

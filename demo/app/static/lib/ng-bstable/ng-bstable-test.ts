@@ -10,17 +10,26 @@ import {ng_bstable} from "./ng-bstable.ts";
 @View({
     directives: [ng_bstable],
     template:`
-       <ng_bstable [option]="bsOption" [data]="data"></ng_bstable>
-        <ng_bstable [option]="bsOption2" [data]="data2"></ng_bstable>
+       <ng_bstable (edit)="onMyTableEdit($event)" [option]="bsOption" [data]="data" (cellClick)="onTableCellClick($event)" (cellDblClick)="onTableCellDBlClick($event)"></ng_bstable>
+        <ng_bstable (edit)="onMyTableEdit($event)" [option]="bsOption2" [data]="data2" (cellClick)="onTableCellClick($event)" (cellDblClick)="onTableCellDBlClick($event)"></ng_bstable>
     `
 })
 export class app {
+    onTableCellClick()
+    {
+
+    }
+    onTableCellDBlClick()
+    {
+
+    }
     constructor() {
         this.data = {url:'/remoteUrl',method:'get'};
-        this.data2 = Array.from({length:100},(x,i)=>i).map(i=>({
+        this.data2 = Array.from({length:8},(x,i)=>i).map(i=>({
             "namex": "ng-bsTable",
                 "column1": i,
-                "column2": i + 12
+                "column2": i + 12,
+                "column3": i + 14
         }));
         this.bsOption = {
             columns:[
@@ -46,7 +55,8 @@ export class app {
                     "title": "Column2",
                     "colspan": 1,
                     "rowspan": 1,
-                    filterable:true
+                    filterable:true,
+                    editable:true
                 }]
             ],
             onExpandRow:function(ngEl,_loader,rdata){
@@ -69,7 +79,7 @@ export class app {
         }
         this.bsOption2 = {
             columns:[
-                [{"title":"RAW DATA EXAMPLE","colspan":3}],
+                [{"title":"RAW DATA EXAMPLE","colspan":4}],
                     [{
                     "field": "namex",
                     "title": "Name",
@@ -77,7 +87,7 @@ export class app {
                     "rowspan": 2
                 }, {
                     "title": "GroupedColumn",
-                    "colspan": 2,
+                    "colspan": 3,
                     "rowspan": 1
                 }],
                 [{
@@ -91,7 +101,16 @@ export class app {
                     "title": "Column2",
                     "colspan": 1,
                     "rowspan": 1,
-                    filterable:true
+                    filterable:true,
+                    editable:true
+                },{
+                    "field":"column3",
+                    "title":"Column3",
+                    "colspan": 1,
+                    "rowspan": 1,
+                    filterable:true,
+                    sortable:true,
+                    editable:true
                 }]
             ],
             onExpandRow:function(ngEl,_loader,rdata){
@@ -112,5 +131,11 @@ export class app {
             pagination:true,
             pageSize:20
         }
+    }
+    onMyTableEdit(evt)
+    {
+        let alertMsg = 'editedRow:' + evt.row + ' editedCol:' + evt.col + ' oldVal:' + evt.originVal + ' newVal:'
+        + evt.newVal;
+        alert(alertMsg);
     }
 }
