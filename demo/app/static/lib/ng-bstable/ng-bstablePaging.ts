@@ -1,7 +1,7 @@
 /**
  * Created by LIJA3 on 6/17/2016.
  */
-import {Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output } from "angular2/core";
+import {Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output,Input} from "angular2/core";
 import {bsTablePageEvent} from "./ng-bstableEvt.ts";
 @Pipe({
     name:"pageBtnPipe",
@@ -16,7 +16,7 @@ class pageBtnPipe{
             input == undefined)
             return[];
         let pageBtn = [],
-             minPage = currPage - 3 > 0 ? currPage - 3 : 1;
+             minPage = currPage - 3 > 0 ? currPage - 3 : 1,
              maxPage = currPage + 3 <= input ? currPage + 3 : input;
         if(minPage != maxPage - 6)
         {
@@ -85,6 +85,11 @@ template:
 export class ngBsTablePaging{
     @Output('pageSizeChange') public onPageSizeChange: EventEmitter<bsTablePageEvent> = new EventEmitter<bsTablePageEvent>();
     @Output('pageChange') public onPageChange: EventEmitter<bsTablePageEvent> = new EventEmitter<bsTablePageEvent>();
+    private _pageSize:number;
+    private _totalRecords:number;
+    private oriPageSize:number;
+    @Input() private currPage:number;
+    @Input() private totalPage:number;
     activeClass:any = {
         'page-number':true,
         'active':true
@@ -100,7 +105,6 @@ export class ngBsTablePaging{
         if(this.totalRecords != null) {
             this.totalPage = Math.floor((this.totalRecords + this.pageSize - 1) / this.pageSize);
         }
-        return v;
     }
     set totalRecords(v)
     {
@@ -129,43 +133,6 @@ export class ngBsTablePaging{
     getPageBtns()
     {
         return Array.from(new Array(this.totalPage), (x,i) => i)
-    }
-    updatePageRefered(pageSize,curPage,totalPages)
-    {
-        if(totalPages == undefined ||
-        curPage == undefined ||
-        pageSize == undefined)
-            return;
-        let pageBtn = [];
-        if(totalPages < 6)
-        {
-            for(var i = 1; i <= totalPages; i ++)
-            {
-                pageBtn.push(i);
-            }
-        } else
-        {
-            var maxBtn = 6;
-            for(var i = curPage - 1; i >= 0 && i > curPage - 3; i --)
-            {
-                 maxBtn --;
-                 pageBtn.push(i);
-            }
-            for(var i = curPage; i <= this.totalPages && maxBtn >= 0; i ++)
-            {
-                 maxBtn --;
-                 pageBtn.push(i);
-            }
-        }
-        pageBtn.sort((a,b)=>{return a - b;})
-        this.pageSizeList = this.getPageSizeList(this._oriPageSize);
-        this.pageBtns = pageBtn;
-    }
-    getPageSizeList()
-    {
-        if(!this._oriPageSize)
-            return [{num:1}];
-        return [{num:Math.floor((this._oriPageSize) / 2)},{num:this._oriPageSize},{num:this._oriPageSize * 2}];
     }
     pageBtnClick(evt,j)
     {

@@ -1,20 +1,22 @@
 /**
  * Created by LIJA3 on 6/17/2016.
  */
-import { Component,View, Directive} from "angular2/core";
+import { Component,Type, Directive} from "angular2/core";
 import {ng_bstable} from "./ng-bstable.ts";
 @Component({
-        selector: "app"
-    }
-)
-@View({
+        selector: "app",
     directives: [ng_bstable],
     template:`
-       <ng_bstable (edit)="onMyTableEdit($event)" [option]="bsOption" [data]="data" (cellClick)="onTableCellClick($event)" (cellDblClick)="onTableCellDBlClick($event)"></ng_bstable>
+        <ng_bstable (edit)="onMyTableEdit($event)" [option]="bsOption" [data]="data" (cellClick)="onTableCellClick($event)" (cellDblClick)="onTableCellDBlClick($event)"></ng_bstable>
         <ng_bstable (edit)="onMyTableEdit($event)" [option]="bsOption2" [data]="data2" (cellClick)="onTableCellClick($event)" (cellDblClick)="onTableCellDBlClick($event)"></ng_bstable>
     `
-})
+    }
+)
 export class app {
+    private data:any;
+    private data2:any;
+    private bsOption:any;
+    private bsOption2:any;
     onTableCellClick()
     {
 
@@ -29,7 +31,8 @@ export class app {
             "namex": "ng-bsTable",
                 "column1": i,
                 "column2": i + 12,
-                "column3": i + 14
+                "column3": i + 14,
+                "column4": i + 20
         }));
         this.bsOption = {
             columns:[
@@ -79,7 +82,7 @@ export class app {
         }
         this.bsOption2 = {
             columns:[
-                [{"title":"RAW DATA EXAMPLE","colspan":4}],
+                [{"title":"RAW DATA EXAMPLE","colspan":5}],
                     [{
                     "field": "namex",
                     "title": "Name",
@@ -89,7 +92,10 @@ export class app {
                     "title": "GroupedColumn",
                     "colspan": 3,
                     "rowspan": 1
-                }],
+                },{"title": "column4",
+                        "colspan": 1,
+                        "rowspan": 2,
+                        "field":"column4"}],
                 [{
                     "field": "column1",
                     "title": "Column1",

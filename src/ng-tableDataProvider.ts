@@ -14,7 +14,7 @@ export class ng_bsTableDataProvider
         if(Array.isArray(data))
         {
             return new Promise(function(resolve,reject){
-                return resolve(data);
+                 resolve(data);
             });
         } else
         {
@@ -23,17 +23,17 @@ export class ng_bsTableDataProvider
                 switch(method)
                 {
                     case 'GET':
-                        return this.http.get(data.url).subscribe(function(response){
+                         this.http.get(data.url).subscribe(function(response){
                             resolve(response.json());
                         });
                         break;
                     case 'POST':
-                        return this.http.post(data.url).subscribe(function(response){
+                         this.http.post(data.url).subscribe(function(response){
                             resolve(response.json());
                         });
                         break;
                     default:
-                        return this.http.get(data.url).subscribe(function(response){
+                         this.http.get(data.url).subscribe(function(response){
                             resolve(response.json());
                         });
                 }

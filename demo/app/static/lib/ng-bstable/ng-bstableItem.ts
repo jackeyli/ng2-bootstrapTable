@@ -2,7 +2,7 @@
  * Created by LIJA3 on 6/17/2016.
  */
 import {bsTableEvt} from "./ng-bstableEvt.ts";
-import { Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
+import { Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output,Input} from "angular2/core";
 import {ng2Editable} from './ng-editable.ts';
 @Component({
     selector : "ngBsTableItem",
@@ -34,6 +34,9 @@ export class ng_bsTableItem{
     @Output('celldblClick') cellDblClick : EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
     @Output('editCommit')  public commitEditEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output('beginEdit') public beginEditEmitter: EventEmitter<any> = new EventEmitter<any>();
+    @Input() private config : any;
+    @Input() private data:any;
+    @Input() private defaultEditComponentType:any;
     constructor(){
     }
     getEditCellStyle(){
@@ -57,7 +60,11 @@ export class ng_bsTableItem{
         return <bsTableEvt>({
             value:this.data.data[this.config.field],
             row:this.data.row,
-            col:this.config
+            col:this.config,
+            data:null,
+            table:null,
+            originVal:null,
+            newVal:null
         });
     }
 }

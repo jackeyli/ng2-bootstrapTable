@@ -9,5 +9,7 @@ export interface bsTableEvt{
     col: number;
     row: number;
     data:any;
-    target:any;
+    table:any;
+    originVal:any;
+    newVal:any;
 }

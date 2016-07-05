@@ -33,6 +33,8 @@ export class sortFilter{
             return [];
         let field = args[0],
             direction = args[1];
+        if(direction == null)
+            return input;
         if(field != null)
         {
             return input.sort((a,b)=>{return a.data[field] > b.data[field] ? (direction == 'asc' ? 1 : -1) :
@@ -52,13 +54,56 @@ export class columingPipe{
             return Array.isArray(input[0]) ? input : [input]
         }
         if(arg[0] == 'dataColumning') {
-            let resolveGrp = function(grp){
-                return Array.isArray(grp) ? (grp.reduce(function(a, b){
-                    return (Array.isArray(resolveGrp(a)) ? resolveGrp(a) : [resolveGrp(a)])
-                        .concat(Array.isArray(resolveGrp(b)) ? resolveGrp(b) : [resolveGrp(b)])
-                })) : grp;
+            let dataColumnArr = [];
+            if(!Array.isArray(input[0]))
+            {
+                dataColumnArr = input.filter(item=>item.field)
+            } else
+            {
+                let maxColspan = 0,
+                    maxRows = input.length;
+                input[0].forEach((item)=>{
+                    maxColspan += (item.colspan ? item.colspan : 1);
+                })
+                let columnHeaderM = new Array(maxRows);
+                for(var k = 0; k < columnHeaderM.length; k ++)
+                {
+                    columnHeaderM[k] = new Array(maxColspan);
+                }
+                input.forEach(function(item,rowIndex){
+                    let thisline = columnHeaderM[rowIndex],
+                        startCol = 0,
+                        curCol = 0;
+                    for(var i = 0; i < thisline.length; i ++)
+                    {
+                        if(thisline[i] != 1)
+                        {
+                            startCol = i;
+                            break;
+                        }
+                    }
+                    item.forEach((itm)=>{
+                        if(itm.field)
+                        {
+                            let thiscolspan = itm.colspan ? itm.colspan : 1,
+                                thisrowspan = itm.rowspan ? itm.rowspan : 1;
+                            dataColumnArr.push({item:itm,colpos:startCol + curCol});
+                            for(var i = rowIndex,j = 0; j < thisrowspan; i ++,j++)
+                            {
+                                for(var ix = startCol + curCol,jx = 0;jx < thiscolspan;ix ++,jx ++)
+                                {
+                                    columnHeaderM[i][ix] = 1;
+                                }
+                            }
+                        }
+                        curCol += (itm.colspan ? itm.colspan : 1);
+                    })
+                });
+                dataColumnArr = dataColumnArr.sort((itema,itemb)=>{
+                    return itema.colpos - itemb.colpos
+                }).map(item=>item['item']);
             }
-            return resolveGrp(input).filter(function(item){return item.field});
+            return dataColumnArr
         }
     }
 }
@@ -76,7 +121,7 @@ export class filteringPipe{
         let allFilters = Object.keys(filteringFields).map((item)=>({
             key:item,
             value:filteringFields[item]
-        });
+        }));
         return (Array.isArray(allFilters) && allFilters.length > 0 )? input.filter(function(item){
             return allFilters.length == 1 ? (allFilters[0].value == null ? true :
                 ((''+item.data[allFilters[0].key]).startsWith(allFilters[0].value) ?

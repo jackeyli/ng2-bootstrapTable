@@ -35,6 +35,8 @@ export class ng_bsTableRow{
     @Output('collapse') public collapseRowEmitter:EventEmitter<any> = new EventEmitter<any>();
     @Output('cellClick') public onCellClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
     @Output('celldblClick') public onCellDblClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
+    private expanded:boolean;
+    private expandedRowComponent:any;
     constructor(private _ngEl: ElementRef,private _containerRef: ViewContainerRef,private _loader:DynamicComponentLoader){
         this.expanded = false;
     }
@@ -59,7 +61,7 @@ export class ng_bsTableRow{
     }
     expand()
     {
-        this._loader.loadNextToLocation((<Type>ng_BsExpandRowPlaceHolder), this._ngEl).then(function (cmp) {
+        this._loader.loadNextToLocation((<Type>ng_BsExpandRowPlaceHolder), this._containerRef).then(function (cmp) {
             this.expandedRowComponent = cmp;
             cmp.instance.expandRowHandler = this.onRowExpand;
             cmp.instance.data = this.data;

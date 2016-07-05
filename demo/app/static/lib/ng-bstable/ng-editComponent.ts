@@ -4,7 +4,7 @@
 import { Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output } from "angular2/core";
 
 export interface editComponent {
-    init(private _ngEl: ElementRef,private option:any);
+    init( _ngEl: ElementRef, option:any);
     onCommit: EventEmitter<any>;
     onCancel: EventEmitter<any>;
     getElementRef() : ElementRef;
@@ -43,10 +43,11 @@ export class defaultEditComponent implements editComponent
 {
     @Output('commit') public onCommit: EventEmitter<any> = new EventEmitter<any>();
     @Output('cancel') public onCancel: EventEmitter<any> = new EventEmitter<any>();
-    init(private targetEl: ElementRef,option){
+    private inputVal:string;
+    init(targetEl: ElementRef,option){
 
     }
-    @Output
+    @Output()
     getElementRef()
     {
         return this._ngEl;
@@ -56,7 +57,7 @@ export class defaultEditComponent implements editComponent
     }
     cancel($e)
     {
-        this.onCancel.emit()
+        this.onCancel.emit($e)
     }
     constructor(private _ngEl:ElementRef){
 

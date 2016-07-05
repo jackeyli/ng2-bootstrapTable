@@ -10,4 +10,6 @@ export interface bsTableEvt{
     row: number;
     data:any;
     table:any;
+    originVal:any;
+    newVal:any;
 }

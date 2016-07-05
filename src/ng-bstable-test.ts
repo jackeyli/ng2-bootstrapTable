@@ -1,23 +1,33 @@
 /**
  * Created by LIJA3 on 6/17/2016.
  */
-import { Component,View, Directive} from "angular2/core";
+import { Component,Type, Directive} from "angular2/core";
 import {ng_bstable} from "./ng-bstable.ts";
 @Component({
-        selector: "app"
-    }
-)
-@View({
+        selector: "app",
     directives: [ng_bstable],
     template:`
-       <ng_bstable [option]="bsOption" [data]="data"></ng_bstable>
-        <ng_bstable [option]="bsOption2" [data]="data2"></ng_bstable>
+        <ng_bstable (edit)="onMyTableEdit($event)" [option]="bsOption" [data]="data" (cellClick)="onTableCellClick($event)" (cellDblClick)="onTableCellDBlClick($event)"></ng_bstable>
+        <ng_bstable (edit)="onMyTableEdit($event)" [option]="bsOption2" [data]="data2" (cellClick)="onTableCellClick($event)" (cellDblClick)="onTableCellDBlClick($event)"></ng_bstable>
     `
-})
+    }
+)
 export class app {
+    private data:any;
+    private data2:any;
+    private bsOption:any;
+    private bsOption2:any;
+    onTableCellClick()
+    {
+
+    }
+    onTableCellDBlClick()
+    {
+
+    }
     constructor() {
         this.data = {url:'/remoteUrl',method:'get'};
-        this.data2 = Array.from({length:100},(x,i)=>i).map(i=>({
+        this.data2 = Array.from({length:8},(x,i)=>i).map(i=>({
             "namex": "ng-bsTable",
                 "column1": i,
                 "column2": i + 12,
@@ -47,7 +57,8 @@ export class app {
                     "title": "Column2",
                     "colspan": 1,
                     "rowspan": 1,
-                    filterable:true
+                    filterable:true,
+                    editable:true
                 }]
             ],
             onExpandRow:function(ngEl,_loader,rdata){
@@ -92,14 +103,16 @@ export class app {
                     "title": "Column2",
                     "colspan": 1,
                     "rowspan": 1,
-                    filterable:true
+                    filterable:true,
+                    editable:true
                 },{
                     "field":"column3",
                     "title":"Column3",
                     "colspan": 1,
                     "rowspan": 1,
                     filterable:true,
-                    sortable:true
+                    sortable:true,
+                    editable:true
                 }]
             ],
             onExpandRow:function(ngEl,_loader,rdata){

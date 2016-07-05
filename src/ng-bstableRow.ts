@@ -4,20 +4,26 @@
 import { Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
 import {ng_bstable} from './ng-bstable.ts';
 import {ng_bsTableItem} from "./ng-bstableItem.ts";
-import {ng2Editable} from './ng-editable.ts';
 import {columingPipe} from './ng-tablePipes.ts';
 import {ng_BsExpandRowPlaceHolder} from './ng-expandRowPlaceHolder.ts';
+import {bsTableEvt} from './ng-bstableEvt.ts';
 @Component({
      selector : "ngBsTableRow",
-     inputs: ['columns:columns','data:data','editComponentType:editComponentType','onRowExpand:onRowExpand','detailView:detailView','colspan:colspan'],
-     directives:[ng_bsTableItem,ng2Editable],
+     inputs: ['columns:columns','data:data','defaultEditComponentType:defaultEditComponentType','onRowExpand:onRowExpand','detailView:detailView','expandHolderColspan:expandHolderColspan'],
+     directives:[ng_bsTableItem],
      pipes:[columingPipe],
      template:`
             <td *ngIf="detailView">
                 <a class="detail-icon" href="javascript:"(click)="onClickExpandHandler($event)"><i [ngClass]="getExpandIndicateClass()"></i></a>
             </td>
             <td *ngFor = "#column of (columns |columning : 'dataColumning')" style="position:relative">
-                <ngBsTableItem (editCommit)="onEditCommit($event);" (beginEdit) = "beginEdit($event)" [ng2_editable]="{editCmpType:editComponentType,refData:{data:data,column:column}}" [config]="column" [data]="data">
+                <ngBsTableItem (cellClick)="onCellClickEmitter.emit($event);"
+                (celldblClick) = "onCellDblClickEmitter.emit($event)"
+                (editCommit)="onEditCommit($event);"
+                (beginEdit) = "beginEdit($event);"
+                [defaultEditComponentType]="defaultEditComponentType"
+                [config]="column" [data]="data"
+                >
                 </ngBsTableItem>
             </td>
      `
@@ -27,6 +33,10 @@ export class ng_bsTableRow{
     @Output('beginEdit') public beginEditEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output('expand') public expandRowEmitter:EventEmitter<any> = new EventEmitter<any>();
     @Output('collapse') public collapseRowEmitter:EventEmitter<any> = new EventEmitter<any>();
+    @Output('cellClick') public onCellClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
+    @Output('celldblClick') public onCellDblClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
+    private expanded:boolean;
+    private expandedRowComponent:any;
     constructor(private _ngEl: ElementRef,private _containerRef: ViewContainerRef,private _loader:DynamicComponentLoader){
         this.expanded = false;
     }
@@ -51,11 +61,11 @@ export class ng_bsTableRow{
     }
     expand()
     {
-        this._loader.loadNextToLocation((<Type>ng_BsExpandRowPlaceHolder), this._ngEl).then(function (cmp) {
+        this._loader.loadNextToLocation((<Type>ng_BsExpandRowPlaceHolder), this._containerRef).then(function (cmp) {
             this.expandedRowComponent = cmp;
             cmp.instance.expandRowHandler = this.onRowExpand;
             cmp.instance.data = this.data;
-            cmp.instance.colspan = this.colspan;
+            cmp.instance.colspan = this.expandHolderColspan;
             this.expandRowEmitter.emit({row:this})
         }.bind(this));
         this.expanded = true;
