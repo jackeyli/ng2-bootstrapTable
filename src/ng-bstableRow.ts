@@ -61,7 +61,7 @@ export class ng_bsTableRow{
     }
     expand()
     {
-        this._loader.loadNextToLocation((<Type>ng_BsExpandRowPlaceHolder), this._containerRef).then(function (cmp) {
+        this._loader.loadNextToLocation((<Type>ng_BsExpandRowPlaceHolder), this._ngEl).then(function (cmp) {
             this.expandedRowComponent = cmp;
             cmp.instance.expandRowHandler = this.onRowExpand;
             cmp.instance.data = this.data;

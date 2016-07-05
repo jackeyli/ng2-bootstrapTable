@@ -47,7 +47,6 @@ export class defaultEditComponent implements editComponent
     init(targetEl: ElementRef,option){
 
     }
-    @Output()
     getElementRef()
     {
         return this._ngEl;

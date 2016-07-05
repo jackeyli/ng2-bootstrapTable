@@ -14,7 +14,7 @@ export class ng2Editable{
     constructor(private _ngEl: ElementRef,private _containerRef: ViewContainerRef,private _loader:DynamicComponentLoader){
     }
     _onEdit($event) {
-            this._loader.loadNextToLocation(this.ng2_editable.editCmpType, this._containerRef).then(function (cmp) {
+            this._loader.loadNextToLocation(this.ng2_editable.editCmpType, this._ngEl).then(function (cmp) {
                 //cmp.init(this._ngEl,this.ng2_editable.editCmpOption);
                 this.onEditBegin.emit({editCmp: cmp});
                 cmp.instance.onCommit.subscribe(function (value) {
