@@ -15,7 +15,6 @@
 ### step 1) Make sure you have implement the depended libray
     <pre><code>
     <link rel="stylesheet" type="text/css" href="/jslib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/jslib/bootstrap-table/bootstrap-table.min.css">
     <link rel="stylesheet" type="text/css" href="/jslib/bootstrap-editable.css">
     <script src="/jslib/jquery.min.js"></script>
     <script src="/jslib/bootstrap/js/bootstrap.min.js"></script>

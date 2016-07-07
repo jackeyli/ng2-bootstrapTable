@@ -16,8 +16,8 @@ import {bsTablePageEvent,bsTableEvt} from "./ng-bstableEvt.ts";
     pipes:[pageFilter,sortFilter,columingPipe,filteringPipe],
     providers:[ng_bsTableDataProvider],
     template:`
-        <div class="bootstrap-table">
-            <div class="fixed-table-container">
+        <div class="bootstrap-table bootstrap-table-container">
+            <div class="fixed-table-container bootstrap-table-inner-container">
                 <div class="fixed-table-body">
                     <table  data-toggle="table" class="table table-hover">
                         <thead>
