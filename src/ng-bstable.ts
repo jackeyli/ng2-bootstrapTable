@@ -123,7 +123,7 @@ export class ng_bstable{
     beginEdit(evt) {
         if(this.editingCmp)
         {
-            this.editingCmp.dispose();
+            this.editingCmp.destroy();
         }
             this.editingCmp = evt.editCmp;
     }

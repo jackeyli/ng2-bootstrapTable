@@ -1,7 +1,7 @@
 /**
  * Created by LIJA3 on 6/17/2016.
  */
-import { Component,Type, Directive} from "angular2/core";
+import { Component,Type, Directive,ComponentFactory} from "angular2/core";
 import {ng_bstable} from "./ng-bstable.ts";
 @Component({
         selector: "app",
@@ -62,16 +62,18 @@ export class app {
                     editable:true
                 }]
             ],
-            onExpandRow:function(ngEl,_loader,rdata){
-                _loader.loadNextToLocation((<Type>ng_bstable),ngEl).then(function(cmp){
-                    cmp.instance.option = {
+            onExpandRow:function(holder,ngEl,resolver,rdata){
+                resolver.resolveComponent((<Type>ng_bstable)).then((factory:ComponentFactory) => {
+                    let cmp = ngEl.createComponent(factory)
+                    cmp.instance.option={
                         columns:[
                             {"field":"name",title:"name"},
                             {"field":"name2",title:"name2"}
                         ]
-                    }
-                    cmp.instance.data = [{"name":"A","name2":"B"},{"name":"A","name2":"B"}]
-                }.bind(this));
+                    },
+                    cmp.instance.data=[{"name":"A","name2":"B"},{"name":"A","name2":"B"}];
+                    cmp.instance.emitter.subscribe(event => {holder.onChildEvent(event) })
+                });
             },
             onCollapseRow:function(){
                 console.log('collapsed');
@@ -119,16 +121,18 @@ export class app {
                     editable:true
                 }]
             ],
-            onExpandRow:function(ngEl,_loader,rdata){
-                _loader.loadNextToLocation((<Type>ng_bstable),ngEl).then(function(cmp){
-                    cmp.instance.option = {
+            onExpandRow:function(holder,ngEl,resolver,rdata){
+                resolver.resolveComponent((<Type>ng_bstable)).then((factory:ComponentFactory) => {
+                    let cmp = ngEl.createComponent(factory)
+                    cmp.instance.option={
                         columns:[
                             {"field":"name",title:"name"},
                             {"field":"name2",title:"name2"}
                         ]
-                    }
-                    cmp.instance.data = [{"name":"A","name2":"B"},{"name":"A","name2":"B"}]
-                }.bind(this));
+                    },
+                    cmp.instance.data=[{"name":"A","name2":"B"},{"name":"A","name2":"B"}];
+                    cmp.instance.emitter.subscribe(event => {holder.onChildEvent(event) })
+                });
             },
             onCollapseRow:function(){
                 console.log('collapsed');
