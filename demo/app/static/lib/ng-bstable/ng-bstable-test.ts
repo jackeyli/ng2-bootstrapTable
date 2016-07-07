@@ -72,7 +72,6 @@ export class app {
                         ]
                     },
                     cmp.instance.data=[{"name":"A","name2":"B"},{"name":"A","name2":"B"}];
-                    cmp.instance.emitter.subscribe(event => {holder.onChildEvent(event) })
                 });
             },
             onCollapseRow:function(){
@@ -131,7 +130,6 @@ export class app {
                         ]
                     },
                     cmp.instance.data=[{"name":"A","name2":"B"},{"name":"A","name2":"B"}];
-                    cmp.instance.emitter.subscribe(event => {holder.onChildEvent(event) })
                 });
             },
             onCollapseRow:function(){

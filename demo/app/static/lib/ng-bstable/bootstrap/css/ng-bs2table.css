@@ -8,24 +8,25 @@
     -webkit-box-shadow:0 0 10px rgba(255, 255, 255, .5);
     -moz-box-shadow:0 0 10px rgba(255, 255, 255, .5);
     box-shadow:0 0 10px rgba(255, 255, 255, .5);
+    background-color: #033D6C;
 }
 .bootstrap-table .table>thead>tr>th {
     border-bottom:4px solid;
+    background-color: #033D6C;
 }
 .bootstrap-table
 {
     border-radius: 5px;
     border:30px solid;
     border-color:rgba(105, 189, 246, 0.4);
-    background: -webkit-linear-gradient(top, transparent 12px, rgba(32,116,165,1) 13px),
-    -webkit-linear-gradient(left, transparent 12px, rgba(32,116,165,1) 13px);
-    background-size: 14px 14px;
     padding:20px;
     margin:5px;
     color:white
 }
 
-.bootstrap-table-container
+.bootstrap-table-container,
+.bootstrap-table-inner-container,
+.fixed-table-container
 {
     background-color: #033D6C;
 }
