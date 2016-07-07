@@ -7,14 +7,15 @@ import { Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicC
     pure : false
 })
 export class pageFilter{
-    transform(input,args){
+    transform(input,pageSize,currPage,isPaging){
         if(!input)
             return [];
-        if(!args[2])
+        if(pageSize == null ||
+        currPage == null)
             return input;
-        let pageSize = args[0],
-            currPage = args[1],
-            startIndex = pageSize * (currPage - 1),
+        if(!isPaging)
+            return input;
+            let startIndex = pageSize * (currPage - 1),
             endIndex = pageSize * currPage < input.length ?
             pageSize *  currPage : input.length;
         if(pageSize != null && currPage != null) {
@@ -28,11 +29,9 @@ export class pageFilter{
     pure : false
 })
 export class sortFilter{
-    transform(input,args){
+    transform(input,field,direction){
         if(!input)
             return [];
-        let field = args[0],
-            direction = args[1];
         if(direction == null)
             return input;
         if(field != null)
@@ -47,13 +46,13 @@ export class sortFilter{
     name:'columning'
 })
 export class columingPipe{
-    transform(input,arg){
+    transform(input,columningType){
         if(!input)
             return [];
-        if(arg[0] == 'columning') {
+        if(columningType == 'columning') {
             return Array.isArray(input[0]) ? input : [input]
         }
-        if(arg[0] == 'dataColumning') {
+        if(columningType == 'dataColumning') {
             let dataColumnArr = [];
             if(!Array.isArray(input[0]))
             {
@@ -111,21 +110,20 @@ export class columingPipe{
     name:'filtering',
     pure : false
 })
-export class filteringPipe{
-    transform(input,arg){
-        if(!input)
+export class filteringPipe {
+    transform(input, filteringFields) {
+        if (!input)
             return [];
-        let filteringFields = arg[0];
-        if(filteringFields == null)
+        if (filteringFields == null)
             return input;
         let allFilters = Object.keys(filteringFields).map((item)=>({
-            key:item,
-            value:filteringFields[item]
+            key: item,
+            value: filteringFields[item]
         }));
-        return (Array.isArray(allFilters) && allFilters.length > 0 )? input.filter(function(item){
+        return (Array.isArray(allFilters) && allFilters.length > 0 ) ? input.filter(function (item) {
             return allFilters.length == 1 ? (allFilters[0].value == null ? true :
-                ((''+item.data[allFilters[0].key]).startsWith(allFilters[0].value) ?
-                    true : false)) :  allFilters.reduce(function(filtera,filterb){
+                (('' + item.data[allFilters[0].key]).startsWith(allFilters[0].value) ?
+                    true : false)) : allFilters.reduce(function (filtera, filterb) {
                 return (filtera.value == null ? true :
                         (('' + item.data[filtera.key]).startsWith(filtera.value) ?
                             true : false)) &&
@@ -134,31 +132,5 @@ export class filteringPipe{
                             true : false))
             });
         }) : input;
-    }
-}
-@Pipe({
-    name:'expandingFilter',
-    pure : false
-})
-export class expandFilterPipe{
-    transform(input){
-        if(Array.isArray(input) && input.length == 1)
-        {
-            return (input[0].isExpanded ? [this.getExpandedRowData(input[0]),this.getExpandedSubRowData(input[0])] : [input[0]]);
-        }
-        return input.reduce(function(data1,data2){
-            let data1Arr = Array.isArray(data1) ? data1 :
-                (data1.isExpanded ? [this.getExpandedRowData(data1),this.getExpandedSubRowData(data1)] : [data1]);
-            return data1Arr.concat((data2.isExpanded ? [this.getExpandedRowData(data2),this.getExpandedSubRowData(data2)] : [data2]));
-        }.bind(this));
-    }
-    getExpandedRowData(data1)
-    {
-        data1.subRowData = {isExpandedSubRow:true,parentNode:data1};
-        return data1;
-    }
-    getExpandedSubRowData(data1)
-    {
-        return {isExpandedSubRow:true,parentData:data1}
     }
 }

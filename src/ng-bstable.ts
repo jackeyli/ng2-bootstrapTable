@@ -5,7 +5,7 @@ import {Injectable,Pipe,Component, Directive, ElementRef, Renderer, EventEmitter
 import {ngBsTablePaging} from './ng-bstablePaging.ts';
 import {defaultEditComponent} from './ng-editComponent.ts';
 import {ng_bsTableRow} from './ng-bstableRow.ts';
-import {pageFilter,sortFilter,columingPipe,filteringPipe,expandFilterPipe} from './ng-tablePipes.ts';
+import {pageFilter,sortFilter,columingPipe,filteringPipe} from './ng-tablePipes.ts';
 import {ng_bsTableDataProvider} from './ng-tableDataProvider.ts';
 import {bsTablePageEvent,bsTableEvt} from "./ng-bstableEvt.ts";
 @Injectable()
@@ -13,7 +13,7 @@ import {bsTablePageEvent,bsTableEvt} from "./ng-bstableEvt.ts";
     selector : "ng_bstable",
     inputs : ["option:option","data:data"],
     directives:[ngBsTablePaging,ng_bsTableRow],
-    pipes:[pageFilter,sortFilter,columingPipe,filteringPipe,expandFilterPipe],
+    pipes:[pageFilter,sortFilter,columingPipe,filteringPipe],
     providers:[ng_bsTableDataProvider],
     template:`
         <div class="bootstrap-table">
@@ -21,11 +21,11 @@ import {bsTablePageEvent,bsTableEvt} from "./ng-bstableEvt.ts";
                 <div class="fixed-table-body">
                     <table  data-toggle="table" class="table table-hover">
                         <thead>
-                        <tr *ngFor="#columnRow of (option.columns|columning:'columning');#j=index">
+                        <tr *ngFor="let columnRow of (option.columns|columning:'columning');let j=index">
                             <th *ngIf="option.detailView && j==0" [attr.rowspan]="getDetailViewRowSpan(option.columns)" class = "tableHeader">
                                 <div class="fht-cell"></div>
                             </th>
-                            <th *ngFor="#column of columnRow"  class="fht-cell"[attr.colspan]="column.colspan ? column.colspan : 1" [attr.rowspan]="column.rowspan? column.rowspan : 1" unselectable="on">
+                            <th *ngFor="let column of columnRow"  class="fht-cell"[attr.colspan]="column.colspan ? column.colspan : 1" [attr.rowspan]="column.rowspan? column.rowspan : 1" unselectable="on">
                                  <div [ngClass]="genHeaderClass(column,column.sortDirection)" class = "tableHeader" (click)="onHeaderClick($event,column)">{{column.title}}
                                     <input type="text" *ngIf = "column.filterable && column.field!=null" class="form-control input-sm" style="padding-right: 24px;" (input)="onFilterInput($event,column.field)"/>
                                  </div>
@@ -35,7 +35,7 @@ import {bsTablePageEvent,bsTableEvt} from "./ng-bstableEvt.ts";
                         </thead>
                         <tbody>
                             <ngBsTableRow [detailView]="option.detailView" (expand)="onRowExpand($event)" (collapse)="onRowCollapse($event)" style="display:table-row" [ngClass]="option.rowStyle" [onRowExpand]="option.onExpandRow"
-                                *ngFor="#rdata of (datas|filtering:filteringFields|paging:pageSize:currPage:option.pagination|sorting:sortField:sortDirection)"
+                                *ngFor="let rdata of (datas|filtering:filteringFields|paging:pageSize:currPage:option.pagination|sorting:sortField:sortDirection)"
                             [data]="rdata" (editCommit)="onEditCommit($event);" (beginEdit) = "beginEdit($event)"  [defaultEditComponentType]="getEditComponentType()" [columns]="option.columns"
                             [expandHolderColspan]="(option.columns|columning:'dataColumning').length + (option.detailView ? 1 : 0)"
                             (cellClick)=" onTableCellClick($event)" (celldblClick)="onTableCellDblClick($event)"
@@ -56,14 +56,14 @@ export class ng_bstable{
     @Output("edit") public editEmitter : EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
     @Output("cellClick") public cellClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
     @Output("celldblClick") public celldblClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
-    private expandedRows : ng_bsTableRow[];
-    private editingCmp:any;
-    private filteringFields:any;
-    private currPage:number;
-    private pageSize:number;
-    private sortField:string;
-    private sortDirection:string;
-    private datas:any[];
+    public expandedRows : ng_bsTableRow[];
+    public editingCmp:any;
+    public filteringFields:any;
+    public currPage:number;
+    public pageSize:number;
+    public sortField:string;
+    public sortDirection:string;
+    public datas:any[];
     @Input() private option:any
     constructor(private dataProvider:ng_bsTableDataProvider){
     }

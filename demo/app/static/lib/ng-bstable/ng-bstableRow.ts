@@ -16,7 +16,7 @@ import {bsTableEvt} from './ng-bstableEvt.ts';
             <td *ngIf="detailView">
                 <a class="detail-icon" href="javascript:"(click)="onClickExpandHandler($event)"><i [ngClass]="getExpandIndicateClass()"></i></a>
             </td>
-            <td *ngFor = "#column of (columns |columning : 'dataColumning')" style="position:relative">
+            <td *ngFor = "let column of (columns |columning : 'dataColumning')" style="position:relative">
                 <ngBsTableItem (cellClick)="onCellClickEmitter.emit($event);"
                 (celldblClick) = "onCellDblClickEmitter.emit($event)"
                 (editCommit)="onEditCommit($event);"

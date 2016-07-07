@@ -7,17 +7,15 @@ import {bsTablePageEvent} from "./ng-bstableEvt.ts";
     name:"pageBtnPipe",
     pure : false
 })
-class pageBtnPipe{
-    transform(input,args){
-        let pageSize = args[0],
-            currPage = args[1];
+export class pageBtnPipe{
+    transform(input,pageSize,currPage){
         if(pageSize == undefined ||
             currPage == undefined ||
             input == undefined)
             return[];
         let pageBtn = [],
-             minPage = currPage - 3 > 0 ? currPage - 3 : 1,
-             maxPage = currPage + 3 <= input ? currPage + 3 : input;
+            minPage = currPage - 3 > 0 ? currPage - 3 : 1,
+            maxPage = currPage + 3 <= input ? currPage + 3 : input;
         if(minPage != maxPage - 6)
         {
             if(maxPage == input)
@@ -36,8 +34,8 @@ class pageBtnPipe{
     name:"pageSizePipe",
     pure : false
 })
-class pageSizePipe{
-    transform(oriPageSize,args){
+export class pageSizePipe{
+    transform(oriPageSize){
         if(!oriPageSize)
             return [1];
         return [Math.floor((oriPageSize) / 2),oriPageSize,oriPageSize * 2];
@@ -58,7 +56,7 @@ template:
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li *ngFor="#pageSizeItem of (oriPageSize|pageSizePipe)"
+                            <li *ngFor="let pageSizeItem of (oriPageSize|pageSizePipe)"
                                 (click)="pageSizeListClick($event,pageSizeItem)">
                                     <a href="javascript:void(0)">{{pageSizeItem}}</a>
                             </li>
@@ -71,7 +69,7 @@ template:
                     <li class="page-pre">
                         <a href="javascript:void(0)" (click)="pageBtnClick($event,currPage > 1 ? currPage - 1:currPage)">‹</a>
                     </li>
-                    <li *ngFor="#pageBtn of (totalPage|pageBtnPipe:pageSize:currPage);" [ngClass]="pageClass(pageBtn)">
+                    <li *ngFor="let pageBtn of (totalPage|pageBtnPipe:pageSize:currPage);" [ngClass]="pageClass(pageBtn)">
                         <a href="javascript:void(0)" (click)="pageBtnClick($event,pageBtn)">{{pageBtn}}</a>
                     </li>
                     <li class="page-next">

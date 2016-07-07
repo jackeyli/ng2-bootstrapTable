@@ -5,7 +5,7 @@ require('reflect-metadata');
 require('rxjs');
 require('zone.js');
 
-var testContext = require.context('./test', true, /\.spec\.ts/);
+var testContext = require.context('./test', true, /\.ts/);
 var appContext = require.context('./src', true, /\.ts/);
 
 appContext.keys().forEach(appContext);

@@ -31,7 +31,8 @@ export class app {
             "namex": "ng-bsTable",
                 "column1": i,
                 "column2": i + 12,
-                "column3": i + 14
+                "column3": i + 14,
+                "column4": i + 20
         }));
         this.bsOption = {
             columns:[
@@ -81,7 +82,7 @@ export class app {
         }
         this.bsOption2 = {
             columns:[
-                [{"title":"RAW DATA EXAMPLE","colspan":4}],
+                [{"title":"RAW DATA EXAMPLE","colspan":5}],
                     [{
                     "field": "namex",
                     "title": "Name",
@@ -91,7 +92,10 @@ export class app {
                     "title": "GroupedColumn",
                     "colspan": 3,
                     "rowspan": 1
-                }],
+                },{"title": "column4",
+                        "colspan": 1,
+                        "rowspan": 2,
+                        "field":"column4"}],
                 [{
                     "field": "column1",
                     "title": "Column1",
