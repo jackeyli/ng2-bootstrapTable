@@ -1,8 +1,9 @@
 /**
  * Created by LIJA3 on 6/17/2016.
  */
-import { Component,Type, Directive,ComponentFactory} from "angular2/core";
+import { ViewContainerRef,TemplateRef,Component,Type, Directive,ComponentFactory} from "angular2/core";
 import {ng_bstable} from "./ng-bstable.ts";
+import {defaultCellTemplate} from './defaultCellTemplate.ts';
 @Component({
         selector: "app",
     directives: [ng_bstable],
@@ -25,14 +26,14 @@ export class app {
     {
 
     }
-    constructor() {
+    constructor(private _viewContainerRef:ViewContainerRef) {
         this.data = {url:'/remoteUrl',method:'get'};
         this.data2 = Array.from({length:8},(x,i)=>i).map(i=>({
             "namex": "ng-bsTable",
                 "column1": i,
-                "column2": i + 12,
-                "column3": i + 14,
-                "column4": i + 20
+                "column2": i + Math.floor(Math.random() * 12),
+                "column3": i + Math.floor(Math.random() * 14),
+                "column4": i + Math.floor(Math.random() * 20)
         }));
         this.bsOption = {
             columns:[
@@ -59,7 +60,16 @@ export class app {
                     "colspan": 1,
                     "rowspan": 1,
                     filterable:true,
-                    editable:true
+                    editable:true,
+                    formatter:function(value,row,index){
+                        if(value > row['column1'])
+                        {
+                            return '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-up"></i>'
+                        } else
+                        {
+                            return  '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-down"></i>'
+                        }
+                    }
                 }]
             ],
             onExpandRow:function(holder,ngEl,resolver,rdata){
@@ -109,7 +119,13 @@ export class app {
                     "colspan": 1,
                     "rowspan": 1,
                     filterable:true,
-                    editable:true
+                    editable:true,
+                    cellComponent:{
+                        type:defaultCellTemplate,
+                        init:function(cmp,cell,cfg,data){
+                            cmp.instance.data = data[cfg.field];
+                        }
+                    }
                 },{
                     "field":"column3",
                     "title":"Column3",
@@ -117,7 +133,16 @@ export class app {
                     "rowspan": 1,
                     filterable:true,
                     sortable:true,
-                    editable:true
+                    editable:true,
+                    formatter:function(value,row,index){
+                        if(value > row['column2'])
+                        {
+                            return '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-up"></i>'
+                        } else
+                        {
+                            return  '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-down"></i>'
+                        }
+                    }
                 }]
             ],
             onExpandRow:function(holder,ngEl,resolver,rdata){

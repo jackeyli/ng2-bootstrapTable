@@ -46,7 +46,7 @@ export class pageSizePipe{
     inputs: ['pageSize:pageSize','currPage:currPage','table:table','totalRecords:totalRecords','totalPage:totalPage'],
     pipes:[pageBtnPipe,pageSizePipe],
 template:
-    `<div  class="fixed-table-pagination">
+    `<div>
             <div class="pull-left pagination-detail">
                 <span class="pagination-info"> Showing {{currPage}} to {{totalPage}} of {{totalPage}}</span>
                 <span class="page-list">

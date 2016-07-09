@@ -11,19 +11,19 @@ import {ComponentResolver,ViewChild,HostListener,Pipe,Component, Directive, Elem
         ],
     template:`
         <td [attr.colspan]="colspan">
-        <myFixedPosition #v_container></myFixedPosition>
+            <template #fixedPlace></template>
         </td>
     `
 })
 export class ng_BsExpandRowPlaceHolder{
-    @ViewChild('v_container', {read: ViewContainerRef}) mV_Container;
     @Input() private expandRowHandler:any;
     @Input() private data:any;
     @Input() private colspan:number;
+    @ViewChild('fixedPlace', {read: ViewContainerRef}) private itemComponentHolder:ViewContainerRef;
     constructor(private _ngEl: ElementRef,private _containerRef: ViewContainerRef,private _loader:DynamicComponentLoader,private _renderer:Renderer,private _resolver:ComponentResolver){
        _ngEl.nativeElement.style.display = 'table-row';
     }
     ngAfterViewInit() {
-        this.expandRowHandler(this,this.mV_Container,this._resolver,this.data);
+        this.expandRowHandler(this,this.itemComponentHolder,this._resolver,this.data);
     }
 }

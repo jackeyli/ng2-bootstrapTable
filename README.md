@@ -1,4 +1,4 @@
-## A Bootstrap Style table for angular2 support sort/paging/edit/grouping Coumn/expandRows
+## A Bootstrap Style table for angular2 support sort/paging/edit/grouping Coumn/expandRows/cell Dynamic Components/cell Dynamic html
 <img src="angular2-bootstrapTable.PNG"></img>
 ### How to run demo ?
 

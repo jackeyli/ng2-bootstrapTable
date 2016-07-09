@@ -1,7 +1,7 @@
 /**
  * Created by jackeyli on 2016/6/28.
  */
-import { Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
+import {Input,Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
 import {ng_bstable} from './ng-bstable.ts';
 import {ng_bsTableItem} from "./ng-bstableItem.ts";
 import {columingPipe} from './ng-tablePipes.ts';
@@ -37,6 +37,7 @@ export class ng_bsTableRow{
     @Output('celldblClick') public onCellDblClickEmitter:EventEmitter<bsTableEvt> = new EventEmitter<bsTableEvt>();
     private expanded:boolean;
     private expandedRowComponent:any;
+    @Input() private onRowExpand:any;
     constructor(private _ngEl: ElementRef,private _containerRef: ViewContainerRef,private _loader:DynamicComponentLoader){
         this.expanded = false;
     }

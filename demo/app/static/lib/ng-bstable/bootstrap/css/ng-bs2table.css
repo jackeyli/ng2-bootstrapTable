@@ -5,30 +5,30 @@
     line-height: 1.42857143;
     vertical-align: top;
     border: 1px solid;
-    -webkit-box-shadow:0 0 10px rgba(255, 255, 255, .5);
-    -moz-box-shadow:0 0 10px rgba(255, 255, 255, .5);
-    box-shadow:0 0 10px rgba(255, 255, 255, .5);
-    background-color: #033D6C;
+    -webkit-box-shadow:0 0 10px rgba(26, 26, 26, .5);
+    -moz-box-shadow:0 0 10px rgba(26, 26, 26, .5);
+    box-shadow:0 0 10px rgba(26, 26, 26, .5);
 }
 .bootstrap-table .table>thead>tr>th {
     border-bottom:4px solid;
-    background-color: #033D6C;
 }
 .bootstrap-table
 {
     border-radius: 5px;
     border:30px solid;
-    border-color:rgba(105, 189, 246, 0.4);
+    border-color: rgba(26, 26, 26, .25);
     padding:20px;
     margin:5px;
-    color:white
 }
 
 .bootstrap-table-container,
 .bootstrap-table-inner-container,
 .fixed-table-container
 {
-    background-color: #033D6C;
+    background:-webkit-linear-gradient(top, transparent 13px, #c4e3f3 14px),
+                 -webkit-linear-gradient(left, transparent 13px, #c4e3f3 14px);
+
+    background-size: 14px 14px;
 }
 
 .table > thead > tr > th {

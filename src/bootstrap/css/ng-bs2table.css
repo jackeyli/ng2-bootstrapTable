@@ -1,30 +1,41 @@
-.table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
-}
-.table > thead > tr > th,
 .table > tbody > ngBsTableRow > th,
-.table > tfoot > tr > th,
-.table > thead > tr > td,
-.table > tbody > ngBsTableRow > td,
-.table > tfoot > tr > td {
+.table > tbody > ngBsTableRow > td
+{
     padding: 8px;
     line-height: 1.42857143;
     vertical-align: top;
-    border-top: 1px solid #ddd;
+    border: 1px solid;
+    -webkit-box-shadow:0 0 10px rgba(26, 26, 26, .5);
+    -moz-box-shadow:0 0 10px rgba(26, 26, 26, .5);
+    box-shadow:0 0 10px rgba(26, 26, 26, .5);
 }
+.bootstrap-table .table>thead>tr>th {
+    border-bottom:4px solid;
+}
+.bootstrap-table
+{
+    border-radius: 5px;
+    border:30px solid;
+    border-color: rgba(26, 26, 26, .25);
+    padding:20px;
+    margin:5px;
+}
+
+.bootstrap-table-container,
+.bootstrap-table-inner-container,
+.fixed-table-container
+{
+    background:-webkit-linear-gradient(top, transparent 13px, #c4e3f3 14px),
+    -webkit-linear-gradient(left, transparent 13px, #c4e3f3 14px);
+
+    background-size: 14px 14px;
+}
+
 .table > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: 2px solid #ddd;
-}
-.table > caption + thead > tr:first-child > th,
-.table > colgroup + thead > tr:first-child > th,
-.table > thead:first-child > tr:first-child > th,
-.table > caption + thead > tr:first-child > td,
-.table > colgroup + thead > tr:first-child > td,
-.table > thead:first-child > tr:first-child > td {
-    border-top: 0;
+    border-bottom:4px solid;
+    border-left:none;
+    border-right:none;
 }
 .table > caption + thead > ngBsTableRow:first-child > th,
 .table > colgroup + thead > ngBsTableRow:first-child > th,
@@ -34,85 +45,44 @@
 .table > thead:first-child > ngBsTableRow:first-child > td {
     border-top: 0;
 }
-.table > tbody + tbody {
-    border-top: 2px solid #ddd;
-}
-.table .table {
-    background-color: #fff;
-}
-.table-condensed > thead > tr > th,
 .table-condensed > tbody > ngBsTableRow > th,
-.table-condensed > tfoot > tr > th,
-.table-condensed > thead > tr > td,
-.table-condensed > tbody > ngBsTableRow > td,
-.table-condensed > tfoot > tr > td {
+.table-condensed > tbody > ngBsTableRow > td
+{
     padding: 5px;
 }
 .table-bordered {
     border: 1px solid #ddd;
 }
-.table-bordered > thead > tr > th,
 .table-bordered > tbody > ngBsTableRow > th,
-.table-bordered > tfoot > tr > th,
-.table-bordered > thead > tr > td,
-.table-bordered > tbody > ngBsTableRow > td,
-.table-bordered > tfoot > tr > td {
+.table-bordered > tbody > ngBsTableRow > td
+{
     border: 1px solid #ddd;
-}
-.table-bordered > thead > tr > th,
-.table-bordered > thead > tr > td {
-    border-bottom-width: 2px;
 }
 .table-striped > tbody > ngBsTableRow:nth-of-type(odd) {
     background-color: #f9f9f9;
 }
 .table-hover > tbody > ngBsTableRow:hover {
-    background-color: #f5f5f5;
+    background-color: #709ee8;
 }
-table col[class*="col-"] {
-    position: static;
-    display: table-column;
-    float: none;
-}
-table td[class*="col-"],
-table th[class*="col-"] {
-    position: static;
-    display: table-cell;
-    float: none;
-}
-.table > thead > tr > td.active,
 .table > tbody > ngBsTableRow > td.active,
-.table > tfoot > tr > td.active,
-.table > thead > tr > th.active,
 .table > tbody > ngBsTableRow > th.active,
-.table > tfoot > tr > th.active,
-.table > thead > tr.active > td,
 .table > tbody > ngBsTableRow.active > td,
-.table > tfoot > tr.active > td,
-.table > thead > tr.active > th,
-.table > tbody > ngBsTableRow.active > th,
-.table > tfoot > tr.active > th {
-    background-color: #f5f5f5;
+.table > tbody > ngBsTableRow.active > th
+{
+    background-color: #709ee8;
 }
 .table-hover > tbody > ngBsTableRow > td.active:hover,
 .table-hover > tbody > ngBsTableRow > th.active:hover,
 .table-hover > tbody > ngBsTableRow.active:hover > td,
 .table-hover > tbody > ngBsTableRow:hover > .active,
 .table-hover > tbody > ngBsTableRow.active:hover > th {
-    background-color: #e8e8e8;
+    background-color: #709ee8;
 }
-.table > thead > tr > td.success,
 .table > tbody > ngBsTableRow > td.success,
-.table > tfoot > tr > td.success,
-.table > thead > tr > th.success,
 .table > tbody > ngBsTableRow > th.success,
-.table > tfoot > tr > th.success,
-.table > thead > tr.success > td,
 .table > tbody > ngBsTableRow.success > td,
-.table > tfoot > tr.success > td,
-.table > thead > tr.success > th,
-.table > tbody > ngBsTableRow.success > th,
-.table > tfoot > tr.success > th {
+.table > tbody > ngBsTableRow.success > th
+{
     background-color: #dff0d8;
 }
 .table-hover > tbody > ngBsTableRow > td.success:hover,
@@ -120,21 +90,16 @@ table th[class*="col-"] {
 .table-hover > tbody > ngBsTableRow.success:hover > td,
 .table-hover > tbody > ngBsTableRow:hover > .success,
 .table-hover > tbody > ngBsTableRow.success:hover > th {
-    background-color: #d0e9c6;
+    background-color: #709ee8;
 }
-.table > thead > tr > td.info,
+
 .table > tbody > ngBsTableRow > td.info,
-.table > tfoot > tr > td.info,
-.table > thead > tr > th.info,
 .table > tbody > ngBsTableRow > th.info,
-.table > tfoot > tr > th.info,
-.table > thead > tr.info > td,
 .table > tbody > ngBsTableRow.info > td,
-.table > tfoot > tr.info > td,
-.table > thead > tr.info > th,
-.table > tbody > ngBsTableRow.info > th,
-.table > tfoot > tr.info > th {
+.table > tbody > ngBsTableRow.info > th
+{
     background-color: #d9edf7;
+
 }
 .table-hover > tbody > ngBsTableRow > td.info:hover,
 .table-hover > tbody > ngBsTableRow > th.info:hover,
@@ -143,18 +108,11 @@ table th[class*="col-"] {
 .table-hover > tbody > ngBsTableRow.info:hover > th {
     background-color: #c4e3f3;
 }
-.table > thead > tr > td.warning,
 .table > tbody > ngBsTableRow > td.warning,
-.table > tfoot > tr > td.warning,
-.table > thead > tr > th.warning,
 .table > tbody > ngBsTableRow > th.warning,
-.table > tfoot > tr > th.warning,
-.table > thead > tr.warning > td,
 .table > tbody > ngBsTableRow.warning > td,
-.table > tfoot > tr.warning > td,
-.table > thead > tr.warning > th,
-.table > tbody > ngBsTableRow.warning > th,
-.table > tfoot > tr.warning > th {
+.table > tbody > ngBsTableRow.warning > th
+{
     background-color: #fcf8e3;
 }
 .table-hover > tbody > ngBsTableRow > td.warning:hover,
@@ -164,18 +122,12 @@ table th[class*="col-"] {
 .table-hover > tbody > ngBsTableRow.warning:hover > th {
     background-color: #faf2cc;
 }
-.table > thead > tr > td.danger,
+
 .table > tbody > ngBsTableRow > td.danger,
-.table > tfoot > tr > td.danger,
-.table > thead > tr > th.danger,
 .table > tbody > ngBsTableRow > th.danger,
-.table > tfoot > tr > th.danger,
-.table > thead > tr.danger > td,
 .table > tbody > ngBsTableRow.danger > td,
-.table > tfoot > tr.danger > td,
-.table > thead > tr.danger > th,
-.table > tbody > ngBsTableRow.danger > th,
-.table > tfoot > tr.danger > th {
+.table > tbody > ngBsTableRow.danger > th
+{
     background-color: #f2dede;
 }
 .table-hover > tbody > ngBsTableRow > td.danger:hover,
@@ -185,52 +137,66 @@ table th[class*="col-"] {
 .table-hover > tbody > ngBsTableRow.danger:hover > th {
     background-color: #ebcccc;
 }
-.table-responsive {
-    min-height: .01%;
-    overflow-x: auto;
-}
 @media screen and (max-width: 767px) {
-    .table-responsive {
-        width: 100%;
-        margin-bottom: 15px;
-        overflow-y: hidden;
-        -ms-overflow-style: -ms-autohiding-scrollbar;
-        border: 1px solid #ddd;
-    }
-    .table-responsive > .table {
-        margin-bottom: 0;
-    }
-    .table-responsive > .table > thead > tr > th,
     .table-responsive > .table > tbody > ngBsTableRow > th,
-    .table-responsive > .table > tfoot > tr > th,
-    .table-responsive > .table > thead > tr > td,
-    .table-responsive > .table > tbody > ngBsTableRow > td,
-    .table-responsive > .table > tfoot > tr > td {
+    .table-responsive > .table > tbody > ngBsTableRow > td
+    {
         white-space: nowrap;
+        -webkit-box-shadow:0 0 5px rgba(0, 168, 168, .5);
+        -moz-box-shadow:0 0 5px rgba(0, 168, 168, .5);
+        box-shadow:0 0 5px rgba(0, 168, 168, .5);
     }
-    .table-responsive > .table-bordered {
-        border: 0;
-    }
-    .table-responsive > .table-bordered > thead > tr > th:first-child,
     .table-responsive > .table-bordered > tbody > ngBsTableRow > th:first-child,
-    .table-responsive > .table-bordered > tfoot > tr > th:first-child,
-    .table-responsive > .table-bordered > thead > tr > td:first-child,
-    .table-responsive > .table-bordered > tbody > ngBsTableRow > td:first-child,
-    .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+    .table-responsive > .table-bordered > tbody > ngBsTableRow > td:first-child
+    {
         border-left: 0;
     }
-    .table-responsive > .table-bordered > thead > tr > th:last-child,
+
     .table-responsive > .table-bordered > tbody > ngBsTableRow > th:last-child,
-    .table-responsive > .table-bordered > tfoot > tr > th:last-child,
-    .table-responsive > .table-bordered > thead > tr > td:last-child,
-    .table-responsive > .table-bordered > tbody > ngBsTableRow > td:last-child,
-    .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+    .table-responsive > .table-bordered > tbody > ngBsTableRow > td:last-child
+    {
         border-right: 0;
     }
-    .table-responsive > .table-bordered > tbody > ngBsTableRow:last-child > th,
-    .table-responsive > .table-bordered > tfoot > tr:last-child > th,
-    .table-responsive > .table-bordered > tbody > ngBsTableRow:last-child > td,
-    .table-responsive > .table-bordered > tfoot > tr:last-child > td {
+    .table-responsive > .table-bordered > tbody > ngBsTableRow:last-child > th
+    .table-responsive > .table-bordered > tbody > ngBsTableRow:last-child > td
+    {
         border-bottom: 0;
     }
 }
+
+
+.bootstrap-table .table.table-no-bordered > tbody > ngBsTableRow > td {
+    border-right: 2px solid transparent;
+}
+.bootstrap-table .fixed-table-footer tbody > ngBsTableRow > td {
+    padding: 0 !important;
+}
+.tableHeader
+{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    text-align:center;
+}
+.
+.shown
+{
+    display:'td'
+}
+.hide{
+    display:none
+}
+
+.bootstrap-table > ngBsTablePaging
+{
+    display:inline-block;width:100%
+}
+.fixed-table-container thead th .asc
+{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZ0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBdqEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVoAADeemwtPcZI2wAAAABJRU5ErkJggg==);
+    filter:drop-shadow(1px 1px 1px white)}
+.fixed-table-container thead th .desc{
+    background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWjYBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJzcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII=);
+    filter:drop-shadow(1px 1px 1px white)}
+.fixed-table-container thead th .both{
+    background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azioNZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4euts6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC')
+}
+.fixed-table-container thead th .sortable{cursor:pointer;background-position:right;background-repeat:no-repeat;padding-right:30px}

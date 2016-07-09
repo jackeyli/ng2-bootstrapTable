@@ -21,8 +21,8 @@ app.get('/remoteUrl',function(req,res){
         {
             obj.push({
                 "namex": "ng-bsTable",
-                "column1": i,
-                "column2": i + 12
+                "column1": i + Math.floor(Math.random() * 20),
+                "column2": i + Math.floor(Math.random() * 20)
             })
         }
         res.send(JSON.stringify(obj));
