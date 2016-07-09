@@ -169,6 +169,6 @@ export class app {
     {
         let alertMsg = 'editedRow:' + evt.row + ' editedCol:' + evt.col + ' oldVal:' + evt.originVal + ' newVal:'
         + evt.newVal;
-        alert(alertMsg);
+        console.log(alertMsg);
     }
 }

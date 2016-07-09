@@ -49,63 +49,80 @@ export class app {
             Or you can use
             this.data = {url:'/remoteUrl',method:'get'};
         */
-                            this.bsOption ={
-                                   columns:[
-                                       [{"title":"RAW DATA EXAMPLE","colspan":5}],
-                                           [{
-                                           "field": "namex",
-                                           "title": "Name",
-                                           "colspan": 1,
-                                           "rowspan": 2
-                                       }, {
-                                           "title": "GroupedColumn",
-                                           "colspan": 3,
-                                           "rowspan": 1
-                                       },{"title": "column4",
-                                               "colspan": 1,
-                                               "rowspan": 2,
-                                               "field":"column4"}],
-                                       [{
-                                           "field": "column1",
-                                           "title": "Column1",
-                                           "colspan": 1,
-                                           "rowspan": 1,
-                                           sortable:true
-                                       }, {
-                                           "field": "column2",
-                                           "title": "Column2",
-                                           "colspan": 1,
-                                           "rowspan": 1,
-                                           filterable:true,
-                                           editable:true
-                                       },{
-                                           "field":"column3",
-                                           "title":"Column3",
-                                           "colspan": 1,
-                                           "rowspan": 1,
-                                           filterable:true,
-                                           sortable:true,
-                                           editable:true
-                                       }]
-                                   ],
-                                   onExpandRow:function(ngEl,_loader,rdata){
-                                       _loader.loadNextToLocation((<Type>ng_bstable),ngEl).then(function(cmp){
-                                           cmp.instance.option = {
-                                               columns:[
-                                                   {"field":"name",title:"name"},
-                                                   {"field":"name2",title:"name2"}
-                                               ]
-                                           }
-                                           cmp.instance.data = [{"name":"A","name2":"B"},{"name":"A","name2":"B"}]
-                                       }.bind(this));
-                                   },
-                                   onCollapseRow:function(){
-                                       console.log('collapsed');
-                                   },
-                                   detailView:true,
-                                   pagination:true,
-                                   pageSize:20
-                               }
+                            this.bsOption2 = {
+                                        columns:[
+                                            [{"title":"RAW DATA EXAMPLE","colspan":5}],
+                                                [{
+                                                "field": "namex",
+                                                "title": "Name",
+                                                "colspan": 1,
+                                                "rowspan": 2
+                                            }, {
+                                                "title": "GroupedColumn",
+                                                "colspan": 3,
+                                                "rowspan": 1
+                                            },{"title": "column4",
+                                                    "colspan": 1,
+                                                    "rowspan": 2,
+                                                    "field":"column4"}],
+                                            [{
+                                                "field": "column1",
+                                                "title": "Column1",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                sortable:true
+                                            }, {
+                                                "field": "column2",
+                                                "title": "Column2",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                filterable:true,
+                                                editable:true,
+                                                cellComponent:{
+                                                    type:defaultCellTemplate,
+                                                    init:function(cmp,cell,cfg,data){
+                                                        cmp.instance.data = data[cfg.field];
+                                                    }
+                                                }
+                                            },{
+                                                "field":"column3",
+                                                "title":"Column3",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                filterable:true,
+                                                sortable:true,
+                                                editable:true,
+                                                formatter:function(value,row,index){
+                                                    if(value > row['column2'])
+                                                    {
+                                                        return '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-up"></i>'
+                                                    } else
+                                                    {
+                                                        return  '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-down"></i>'
+                                                    }
+                                                }
+                                            }]
+                                        ],
+                                        onExpandRow:function(holder,ngEl,resolver,rdata){
+                                            resolver.resolveComponent((<Type>ng_bstable)).then((factory:ComponentFactory) => {
+                                                let cmp = ngEl.createComponent(factory)
+                                                cmp.instance.option={
+                                                    columns:[
+                                                        {"field":"name",title:"name"},
+                                                        {"field":"name2",title:"name2"}
+                                                    ]
+                                                },
+                                                cmp.instance.data=[{"name":"A","name2":"B"},{"name":"A","name2":"B"}];
+                                            });
+                                        },
+                                        onCollapseRow:function(){
+                                            console.log('collapsed');
+                                        },
+                                        detailView:true,
+                                        pagination:true,
+                                        pageSize:20
+                                    }
+                                }
     }
 }
 </code></pre>
