@@ -61,7 +61,7 @@ export class app {
                     "rowspan": 1,
                     filterable:true,
                     editable:true,
-                    formatter:function(value,row,index){
+                    formatter:(value,row,index)=>{
                         if(value > row['column1'])
                         {
                             return '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-up"></i>'
@@ -72,7 +72,7 @@ export class app {
                     }
                 }]
             ],
-            onExpandRow:function(holder,ngEl,resolver,rdata){
+            onExpandRow:(holder,ngEl,resolver,rdata)=>{
                 resolver.resolveComponent((<Type>ng_bstable)).then((factory:ComponentFactory) => {
                     let cmp = ngEl.createComponent(factory)
                     cmp.instance.option={
@@ -122,7 +122,7 @@ export class app {
                     editable:true,
                     cellComponent:{
                         type:defaultCellTemplate,
-                        init:function(cmp,cell,cfg,data){
+                        init:(cmp,cell,cfg,data)=>{
                             cmp.instance.data = data[cfg.field];
                         }
                     }
@@ -134,7 +134,7 @@ export class app {
                     filterable:true,
                     sortable:true,
                     editable:true,
-                    formatter:function(value,row,index){
+                    formatter:(value,row,index)=>{
                         if(value > row['column2'])
                         {
                             return '<span>' + value + '</span><i class="glyphicon glyphicon-arrow-up"></i>'
@@ -145,7 +145,7 @@ export class app {
                     }
                 }]
             ],
-            onExpandRow:function(holder,ngEl,resolver,rdata){
+            onExpandRow:(holder,ngEl,resolver,rdata)=>{
                 resolver.resolveComponent((<Type>ng_bstable)).then((factory:ComponentFactory) => {
                     let cmp = ngEl.createComponent(factory)
                     cmp.instance.option={
@@ -169,6 +169,6 @@ export class app {
     {
         let alertMsg = 'editedRow:' + evt.row + ' editedCol:' + evt.col + ' oldVal:' + evt.originVal + ' newVal:'
         + evt.newVal;
-        console.log(alertMsg);
+        alert(alertMsg);
     }
 }

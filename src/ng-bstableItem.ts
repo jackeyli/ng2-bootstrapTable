@@ -4,6 +4,7 @@
 import {bsTableEvt} from "./ng-bstableEvt.ts";
 import {ViewChild,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output,Input} from "angular2/core";
 import {ng2Editable} from './ng-editable.ts';
+import {defaultCellTemplate} from './defaultCellTemplate.ts';
 @Component({
     selector : "ngBsTableItem",
     inputs: ['config: config','data:data','defaultEditComponentType:defaultEditComponentType'],
@@ -52,7 +53,7 @@ export class ng_bsTableItem{
             let cfg =  this.config,
                 data = this.data.data,
                 me = this;
-            this._loader.loadNextToLocation((cfg.cellComponent.type),this.itemComponentHolder).then(function(cmp){
+            this._loader.loadNextToLocation((<Type>cfg.cellComponent.type),this.itemComponentHolder).then(function(cmp){
                 if(cfg.cellComponent.init)
                 {
                     cfg.cellComponent.init(cmp,me,cfg,data);
