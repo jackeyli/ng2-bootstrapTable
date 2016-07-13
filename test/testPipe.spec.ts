@@ -1,8 +1,8 @@
 /**
  * Created by jackeyli on 2016/7/5.
  */
-import {pageFilter,sortFilter,columingPipe,filteringPipe} from '../src/ng-tablePipes.ts';
-import {pageBtnPipe,pageSizePipe} from '../src/ng-bstablePaging.ts';
+import {pageFilter,sortFilter,columingPipe,filteringPipe} from '../src/pipes/ng-tablePipes.ts';
+import {pageBtnPipe,pageSizePipe} from '../src/paging/ng-bstablePaging.ts';
 describe('test PageFilter',function(){
     var filter = new pageFilter();
     it('should return none value when input is undefined',function(){

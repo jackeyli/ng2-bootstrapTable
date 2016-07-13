@@ -1,14 +1,17 @@
 /**
  * Created by LIJA3 on 6/17/2016.
  */
-import {bsTableEvt} from "./ng-bstableEvt.ts";
-import {ViewChild,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output,Input} from "angular2/core";
-import {ng2Editable} from './ng-editable.ts';
-import {defaultCellTemplate} from './defaultCellTemplate.ts';
+import {bsTableEvt} from "./events/ng-bstableEvt.ts";
+import {Injectable,Inject,Injector,ViewChild,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output,Input} from "angular2/core";
+import {ng2Editable} from './editable/ng-editable.ts';
+import {defaultCellTemplate} from './defaultExtraComponents/defaultCellTemplate.ts';
+import {dtUtil} from './utils/dtUtils.ts';
+@Injectable()
 @Component({
     selector : "ngBsTableItem",
     inputs: ['config: config','data:data','defaultEditComponentType:defaultEditComponentType'],
     directives:[ng2Editable],
+    providers:[dtUtil],
     template:
     `
     <div [ngSwitch]="(config.editable || false).toString()" >
@@ -20,7 +23,7 @@ import {defaultCellTemplate} from './defaultCellTemplate.ts';
                 (editCommit)="commitEditEmitter.emit($event)" (beginEdit)="beginEditEmitter.emit($event)">
                 <i class="glyphicon icon-edit glyphicon-edit" style="font-size:5px;cursor:pointer"></i></div>
                 <div style="float:left;display:inline-block;margin-left:5px" [ngClass]="config.class" [innerHTML] =
-                "config.formatter ? config.formatter(data.data[config.field],data.data,i) :data.data[config.field]"
+                "config.formatter ? config.formatter(dtUtil.getDataWithKey(data.data,config.field),data.data,i) :dtUtil.getDataWithKey(data.data,config.field)"
                 (click)="onCellClick()" (dblclick)="onCellDblClick()">
                 </div>
              </template>
@@ -30,7 +33,7 @@ import {defaultCellTemplate} from './defaultCellTemplate.ts';
         </template>
         <template ngSwitchDefault>
             <div [ngClass]="config.class" [innerHTML] =
-                "config.formatter ? config.formatter(data.data[config.field],data.data,i) :data.data[config.field]" (click)="onCellClick()" (dblclick)="onCellDblClick()">
+                "config.formatter ? config.formatter(dtUtil.getDataWithKey(data.data,config.field),data.data,i) :dtUtil.getDataWithKey(data.data,config.field)" (click)="onCellClick()" (dblclick)="onCellDblClick()">
             </div>
         </template>
     </div>
@@ -45,7 +48,7 @@ export class ng_bsTableItem{
     @Input() private data:any;
     @Input() private defaultEditComponentType:any;
     @ViewChild('v_ComponentHolder', {read: ViewContainerRef}) private itemComponentHolder:ViewContainerRef;
-    constructor(private _ngEl: ElementRef,private _containerRef: ViewContainerRef,private _loader:DynamicComponentLoader){
+    constructor(private dtUtil : dtUtil,private _ngEl: ElementRef,private _containerRef: ViewContainerRef,private _loader:DynamicComponentLoader){
     }
     ngAfterViewInit()
     {if(this.config.cellComponent)

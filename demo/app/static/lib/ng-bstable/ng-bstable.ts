@@ -2,12 +2,12 @@
  * Created by LIJA3 on 6/17/2016.
  */
 import {Injectable,Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output,Input} from "angular2/core";
-import {ngBsTablePaging} from './ng-bstablePaging.ts';
-import {defaultEditComponent} from './ng-editComponent.ts';
+import {ngBsTablePaging} from './paging/ng-bstablePaging.ts';
+import {defaultEditComponent} from './defaultExtraComponents/ng-editComponent.ts';
 import {ng_bsTableRow} from './ng-bstableRow.ts';
-import {pageFilter,sortFilter,columingPipe,filteringPipe} from './ng-tablePipes.ts';
-import {ng_bsTableDataProvider} from './ng-tableDataProvider.ts';
-import {bsTablePageEvent,bsTableEvt} from "./ng-bstableEvt.ts";
+import {pageFilter,sortFilter,columingPipe,filteringPipe} from './pipes/ng-tablePipes.ts';
+import {ng_bsTableDataProvider} from './providers/ng-tableDataProvider.ts';
+import {bsTablePageEvent,bsTableEvt} from "./events/ng-bstableEvt.ts";
 @Injectable()
 @Component({
     selector : "ng_bstable",

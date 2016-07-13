@@ -4,9 +4,9 @@
 import {Input,Pipe,Component, Directive, ElementRef, Renderer, EventEmitter, DynamicComponentLoader, Host, ViewEncapsulation, Type, ComponentRef, KeyValueDiffer, KeyValueDiffers, OnInit, OnDestroy, DoCheck, ViewContainerRef, Output} from "angular2/core";
 import {ng_bstable} from './ng-bstable.ts';
 import {ng_bsTableItem} from "./ng-bstableItem.ts";
-import {columingPipe} from './ng-tablePipes.ts';
+import {columingPipe} from './pipes/ng-tablePipes.ts';
 import {ng_BsExpandRowPlaceHolder} from './ng-expandRowPlaceHolder.ts';
-import {bsTableEvt} from './ng-bstableEvt.ts';
+import {bsTableEvt} from './events/ng-bstableEvt.ts';
 @Component({
      selector : "ngBsTableRow",
      inputs: ['columns:columns','data:data','defaultEditComponentType:defaultEditComponentType','onRowExpand:onRowExpand','detailView:detailView','expandHolderColspan:expandHolderColspan'],

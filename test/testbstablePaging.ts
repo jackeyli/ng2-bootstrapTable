@@ -14,7 +14,7 @@ import {
         inject,
     ComponentFixture, TestComponentBuilder
 } from 'angular2/testing';
-import {ngBsTablePaging,pageBtnPipe,pageSizePipe} from '../src/ng-bstablePaging.ts';
+import {ngBsTablePaging,pageBtnPipe,pageSizePipe} from '../src/paging/ng-bstablePaging.ts';
 describe('the paging buttons',()=>{
     it('should display the page button correctly',
     inject([TestComponentBuilder],(tcb:TestComponentBuilder)=>{
