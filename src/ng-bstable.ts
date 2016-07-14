@@ -142,7 +142,7 @@ export class ng_bstable{
     }
     downloadExcel()
     {
-        this.dtUtil.ToExcel(this.getDataForExcelDownload(),"myDownload.xls");
+        this.dtUtil.ToExcel(this.getDataForExcelDownload(),this.option.downloadDetail.filename ? this.option.downloadDetail.filename : "downloading.xls");
     }
     beginEdit(evt) {
         if(this.editingCmp)

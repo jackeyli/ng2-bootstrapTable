@@ -36,7 +36,7 @@ export class app {
                 "column4": i + Math.floor(Math.random() * 20)
         }));
         this.bsOption = {
-            downloadDetail:true,
+            downloadDetail:{filename:'Excel_Downloading_Example.xls'},
             columns:[
                 [{"title":"REMOTE DATA EXAMPLE","colspan":3}],
                 [{
