@@ -8,15 +8,24 @@ import {ng_bsTableRow} from './ng-bstableRow.ts';
 import {pageFilter,sortFilter,columingPipe,filteringPipe} from './pipes/ng-tablePipes.ts';
 import {ng_bsTableDataProvider} from './providers/ng-tableDataProvider.ts';
 import {bsTablePageEvent,bsTableEvt} from "./events/ng-bstableEvt.ts";
+import {dtUtil} from './utils/dtUtils.ts';
 @Injectable()
 @Component({
     selector : "ng_bstable",
     inputs : ["option:option","data:data"],
     directives:[ngBsTablePaging,ng_bsTableRow],
     pipes:[pageFilter,sortFilter,columingPipe,filteringPipe],
-    providers:[ng_bsTableDataProvider],
+    providers:[ng_bsTableDataProvider,dtUtil],
     template:`
         <div class="bootstrap-table bootstrap-table-container">
+            <div><div class="pull-left"></div>
+                 <div class="pull-right" *ngIf="option.downloadDetail">
+                        <i class="glyphicon glyphicon-download-alt" style="font-size:20px;cursor:pointer" (click)="downloadExcel()"></i>
+                        <ul style="position:absolute;margin-left:-50px;display:none">
+                            <li>EXCEL</li>
+                        </ul>
+                 </div>
+            </div>
             <div class="fixed-table-container bootstrap-table-inner-container">
                 <div class="fixed-table-body">
                     <table  data-toggle="table" class="table table-hover">
@@ -65,7 +74,7 @@ export class ng_bstable{
     public sortDirection:string;
     public datas:any[];
     @Input() private option:any
-    constructor(private dataProvider:ng_bsTableDataProvider){
+    constructor(private dataProvider:ng_bsTableDataProvider,private dtUtil : dtUtil){
     }
     onTableCellClick(evt)
     {
@@ -119,6 +128,21 @@ export class ng_bstable{
         {
             data.isExpanded = true;
         }
+    }
+    getDataForExcelDownload()
+    {
+        let cPipe = new columingPipe(),
+            columnSeq = cPipe.transform(this.option.columns,'dataColumning'),
+            _dtUtil = this.dtUtil;
+        return [columnSeq.map(i=>i.title)].concat(this.getTableData().map((data)=>{
+                return columnSeq.map((seq)=>{
+                    return _dtUtil.getDataWithKey(data,seq.field);
+                })
+        }));
+    }
+    downloadExcel()
+    {
+        this.dtUtil.ToExcel(this.getDataForExcelDownload(),"myDownload.xls");
     }
     beginEdit(evt) {
         if(this.editingCmp)
